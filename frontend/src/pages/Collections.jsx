@@ -262,7 +262,7 @@ export default function Collections() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h3 className="heading-tertiary !text-2xl mb-2">
-              Explore Our Collectionssss
+              Explore Our Collections
             </h3>
             <div className="w-24 h-1 bg-gradient-to-r from-[#c5a46d] to-[#001238] mx-auto"></div>
           </div>
