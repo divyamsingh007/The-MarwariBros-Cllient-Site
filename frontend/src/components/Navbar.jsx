@@ -24,7 +24,7 @@ export default function Navbar() {
                     to={"/"}
                     className="hover:opacity-80 transition-opacity"
                   >
-                    <h3 className="heading-quaternary !text-sm lg:!text-base">
+                    <h3 className="heading-quaternary !text-sm lg:!text-xl">
                       Home
                     </h3>
                   </Link>
@@ -34,8 +34,18 @@ export default function Navbar() {
                     to={"/about"}
                     className="hover:opacity-80 transition-opacity"
                   >
-                    <h3 className="heading-quaternary !text-sm lg:!text-base">
+                    <h3 className="heading-quaternary !text-sm lg:!text-xl">
                       About Us
+                    </h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/collections"}
+                    className="hover:opacity-80 transition-opacity"
+                  >
+                    <h3 className="heading-quaternary !text-sm lg:!text-xl">
+                      Collections
                     </h3>
                   </Link>
                 </li>

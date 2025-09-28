@@ -80,9 +80,11 @@ export default function HeroSection() {
                       </button>
                     </div>
 
-                    <button className="bg-[#c5a46d] text-[#001238] py-3 sm:py-4 px-8 sm:px-10 lg:px-12 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base sm:text-lg lg:text-xl hover:scale-105 hover:bg-[#d4b578] transform whitespace-nowrap">
-                      Explore Collection
-                    </button>
+                    <a href="#second-section">
+                      <button className="bg-[#c5a46d] text-[#001238] py-3 sm:py-4 px-8 sm:px-10 lg:px-12 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base sm:text-lg lg:text-xl hover:scale-105 hover:bg-[#d4b578] transform whitespace-nowrap cursor-pointer">
+                        Explore
+                      </button>
+                    </a>
                   </div>
                 </div>
               </div>

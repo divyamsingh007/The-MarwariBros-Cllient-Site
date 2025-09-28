@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function SecondSection() {
   const categories = [
@@ -36,45 +37,46 @@ export default function SecondSection() {
   ];
 
   return (
-    <main className="py-16 px-6 md:px-12 lg:px-24">
+    <main id="second-section" className="py-16 px-6 md:px-12 lg:px-24">
       <div className="heading-primary text-center mb-16">
         Discover the Legacy of Marwari Craftsmanship
       </div>
 
-      <div className="grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className="category-card group relative h-96 overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-          >
+      <Link to={"/collections"}>
+        <div className="grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {categories.map((category, index) => (
             <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
-              style={{
-                backgroundImage: `url(${category.backgroundImage})`,
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/90 via-[#001238]/40 to-transparent group-hover:from-[#001238]/95 transition-all duration-300" />
-            <div className="absolute inset-0 flex flex-col justify-end p-6">
-              <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
-                <h3 className="heading-tertiary !text-[#c5a46d] mb-2 !text-xl">
-                  {category.subtitle}
-                </h3>
-                <h2 className="heading-secondary !text-white mb-3 !text-2xl">
-                  {category.title}
-                </h2>
-                <p className="paragraph-small !text-[#f9f9f9] opacity-0 group-hover:opacity-100 transition-opacity duration-300 !text-sm leading-relaxed">
-                  {category.description}
-                </p>
-
-                <button className="mt-4 bg-[#c5a46d] text-[#001238] px-4 py-2 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:bg-[#d4b578]">
-                  Explore Collection
-                </button>
+              key={index}
+              className="category-card group relative h-96 overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
+                style={{
+                  backgroundImage: `url(${category.backgroundImage})`,
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/90 via-[#001238]/40 to-transparent group-hover:from-[#001238]/95 transition-all duration-300" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
+                  <h3 className="heading-tertiary !text-[#c5a46d] mb-2 !text-xl">
+                    {category.subtitle}
+                  </h3>
+                  <h2 className="heading-secondary !text-white mb-3 !text-2xl">
+                    {category.title}
+                  </h2>
+                  <p className="paragraph-small !text-[#f9f9f9] opacity-0 group-hover:opacity-100 transition-opacity duration-300 !text-sm leading-relaxed">
+                    {category.description}
+                  </p>
+                  <button className="mt-4 bg-[#c5a46d] text-[#001238] px-4 py-2 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:bg-[#d4b578]">
+                    Explore Collection
+                  </button>
+                </div>
               </div>
+              <div className="absolute inset-0 border-2 border-[#c5a46d]/20 group-hover:border-[#c5a46d]/60 transition-all duration-300" />
             </div>
-            <div className="absolute inset-0 border-2 border-[#c5a46d]/20 group-hover:border-[#c5a46d]/60 transition-all duration-300" />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Link>
 
       <div className="mt-20 text-center">
         <div className="heading-tertiary mb-4">
