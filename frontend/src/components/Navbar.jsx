@@ -9,14 +9,7 @@ export default function Navbar() {
       <nav className="z-50 w-full bg-[#F9F9F9] border-b-2 border-black fixed top-0 left-0 mt-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-4 md:py-6 lg:py-8">
-            <div className="nav-contact-us hidden md:block">
-              <Link className="flex items-baseline gap-2 lg:gap-2 hover:opacity-80 transition-opacity">
-                <span className="text-lg lg:text-xl">+</span>
-                <h2 className="heading-quaternary !text-sm lg:!text-base">
-                  Contact Us
-                </h2>
-              </Link>
-            </div>
+            
 
             <div className="nav-logo-name flex-1 md:flex-none text-center md:text-left">
               <h1 className="heading-primary !text-2xl sm:!text-3xl md:!text-4xl lg:!text-5xl">
