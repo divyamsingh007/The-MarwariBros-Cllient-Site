@@ -50,7 +50,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
+            {/* <div className="grid grid-cols-2 gap-8">
               <div>
                 <h3 className="heading-quaternary !text-[#c5a46d] mb-4 !text-lg">
                   Collections
@@ -129,7 +129,7 @@ export default function Footer() {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
 
             <div className="space-y-4">
               <h3 className="heading-quaternary !text-[#c5a46d] !text-lg">

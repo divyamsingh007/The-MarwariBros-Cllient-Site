@@ -229,10 +229,8 @@ export default function Collections() {
 
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
-      {/* Navigation */}
       <Navbar></Navbar>
 
-      {/* Hero Section */}
       <section className="mt-16 pt-24 md:pt-32 pb-20 bg-[#001238] relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-10 w-20 h-20 border border-[#c5a46d] rotate-45"></div>
@@ -257,7 +255,6 @@ export default function Collections() {
         </div>
       </section>
 
-      {/* Category Filter */}
       <section className="py-20 bg-gradient-to-r from-[#f9f9f9] via-white to-[#f9f9f9] shadow-xl z-40 border-b border-[#c5a46d]/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -284,12 +281,10 @@ export default function Collections() {
               >
                 <span className="relative z-10">{category.name}</span>
 
-                {/* Active indicator */}
                 {activeCategory === category.id && (
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#c5a46d] via-[#d4b578] to-[#c5a46d]"></div>
                 )}
 
-                {/* Hover effect overlay */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-r from-[#c5a46d]/10 via-transparent to-[#c5a46d]/10 transition-opacity duration-300 ${
                     activeCategory === category.id
@@ -304,7 +299,6 @@ export default function Collections() {
             ))}
           </div>
 
-          {/* Category count indicator */}
           <div className="mt-8 text-center">
             <p className="paragraph-small !text-[#666]">
               Showing {filteredCollections.length} item
@@ -319,7 +313,6 @@ export default function Collections() {
         </div>
       </section>
 
-      {/* Collections Grid */}
       <section className="py-20 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12">
@@ -330,7 +323,6 @@ export default function Collections() {
                 onClick={() => setSelectedItem(item)}
               >
                 <div className="bg-white overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-                  {/* Image Container */}
                   <div className="relative overflow-hidden h-80 lg:h-96">
                     <img
                       src={item.image}
@@ -339,20 +331,17 @@ export default function Collections() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    {/* Overlay Content */}
                     <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <p className="paragraph-small !text-[#f9f9f9] !text-sm">
                         {item.description.substring(0, 80)}...
                       </p>
                     </div>
 
-                    {/* Price Tag */}
                     <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
                       {item.price.split(" - ")[0]}+
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-6 lg:p-8 space-y-4">
                     <div>
                       <h3 className="heading-tertiary !text-base !text-[#c5a46d] mb-2">
@@ -366,7 +355,6 @@ export default function Collections() {
                       </p>
                     </div>
 
-                    {/* Features */}
                     <div className="flex flex-wrap gap-2">
                       {item.features.slice(0, 2).map((feature, idx) => (
                         <span
@@ -383,7 +371,6 @@ export default function Collections() {
                       )}
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex gap-3 pt-4">
                       <button className="flex-1 bg-[#001238] text-[#f9f9f9] py-2 px-4 rounded-full text-sm font-semibold hover:bg-[#001f50] transition-all duration-300">
                         View Details
@@ -412,7 +399,6 @@ export default function Collections() {
         </div>
       </section>
 
-      {/* Featured Collection Banner */}
       <section className="py-20 bg-[#001238] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-20 w-32 h-32 border border-[#c5a46d] rotate-45"></div>
@@ -442,7 +428,6 @@ export default function Collections() {
         </div>
       </section>
 
-      {/* Quick Modal for Item Details */}
       {selectedItem && (
         <div
           className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
