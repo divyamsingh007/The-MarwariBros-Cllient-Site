@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Collections() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedItem, setSelectedItem] = useState(null);
+  const collectionsGridRef = useRef(null);
+
+  const handleCategoryClick = (categoryId) => {
+    setActiveCategory(categoryId);
+
+    if (collectionsGridRef.current) {
+      const offset = 100; 
+      const elementPosition =
+        collectionsGridRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const categories = [
     { id: "all", name: "All Collections" },
     { id: "men", name: "Men's Wear" },
     { id: "women", name: "Women's Wear" },
     { id: "jewelry", name: "Jewelry" },
-    { id: "footwear", name: "Footwear" },
+    { id: "footwear", name: "Juttis" },
     { id: "accessories", name: "Accessories" },
   ];
 
   const collections = [
-    // Men's Collection
     {
       id: 1,
       category: "men",
@@ -44,7 +60,12 @@ export default function Collections() {
         "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&h=800&fit=crop",
       description:
         "Elegant kurta sets blending traditional craftsmanship with contemporary design.",
-      features: ["Pure Cotton Silk", "Modern Cuts", "Versatile Style", "Comfort Fit"],
+      features: [
+        "Pure Cotton Silk",
+        "Modern Cuts",
+        "Versatile Style",
+        "Comfort Fit",
+      ],
     },
     {
       id: 3,
@@ -63,7 +84,6 @@ export default function Collections() {
         "Perfect Fit",
       ],
     },
-    // Women's Collection
     {
       id: 4,
       category: "women",
@@ -115,7 +135,6 @@ export default function Collections() {
         "Elegant Style",
       ],
     },
-    // Jewelry Collection
     {
       id: 7,
       category: "jewelry",
@@ -150,7 +169,6 @@ export default function Collections() {
         "Cultural Heritage",
       ],
     },
-    // Footwear Collection
     {
       id: 9,
       category: "footwear",
@@ -185,7 +203,6 @@ export default function Collections() {
         "Elegant Design",
       ],
     },
-    // Accessories
     {
       id: 11,
       category: "accessories",
@@ -268,7 +285,7 @@ export default function Collections() {
             {categories.map((category, index) => (
               <button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() => handleCategoryClick(category.id)}
                 className={`relative px-8 py-4 text-sm lg:text-base font-bold tracking-wide uppercase transition-all duration-500 transform hover:scale-105 cursor-pointer ${
                   activeCategory === category.id
                     ? "bg-[#001238] text-[#f9f9f9] shadow-xl"
@@ -313,7 +330,7 @@ export default function Collections() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32">
+      <section className="py-20 lg:py-32" ref={collectionsGridRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12">
             {filteredCollections.map((item, index) => (

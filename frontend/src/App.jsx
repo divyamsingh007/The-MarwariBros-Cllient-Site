@@ -8,9 +8,12 @@ import About from "./pages/About";
 import Collections from "./pages/Collections";
 import ScrollToTop from "./components/ScrollToTop";
 
+import AdminLayout from "./pages/admin/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import CollectionsPage from "./pages/admin/CollectionsPage";
+import Settings from "./pages/admin/Settings";
 
 function App() {
-
   return (
     <>
       <ScrollToTop></ScrollToTop>
@@ -18,6 +21,21 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/collections" element={<Collections />} />
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="men" element={<CollectionsPage category="Men" />} />
+          <Route path="women" element={<CollectionsPage category="Women" />} />
+          <Route
+            path="jewellery"
+            element={<CollectionsPage category="Jewellery" />}
+          />
+          <Route
+            path="juttis-footwear"
+            element={<CollectionsPage category="Juttis & Footwear" />}
+          />
+          <Route path="settings" element={<Settings />} />
+        </Route>
       </Routes>
     </>
   );
