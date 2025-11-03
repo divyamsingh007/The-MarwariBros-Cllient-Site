@@ -109,8 +109,11 @@ export default function AdminLayout() {
           <button
             className="admin-logout-btn"
             onClick={() => {
+              // Clear auth data
+              localStorage.removeItem('user');
+              localStorage.removeItem('accessToken');
               closeSidebar();
-              navigate("/");
+              navigate("/login");
             }}
             title="Logout"
           >

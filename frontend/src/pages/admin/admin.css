@@ -639,3 +639,185 @@
 .justify-between { justify-content: space-between; }
 .justify-end { justify-content: flex-end; }
 .w-full { width: 100%; }
+
+/* Enhanced Product Modal Styles */
+.admin-modal-enhanced {
+  max-width: 700px !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.admin-modal-close-btn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  background: #f7fafc;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #4a5568;
+  transition: all 0.2s ease;
+}
+
+.admin-modal-close-btn:hover {
+  background: #edf2f7;
+  color: #1a202c;
+  transform: rotate(90deg);
+}
+
+.product-image-section {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  border: 2px dashed #cbd5e0;
+}
+
+.product-image-preview {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  margin: 0 auto 1.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.product-image-preview:hover {
+  transform: scale(1.02);
+}
+
+.product-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 18, 56, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-image-preview:hover .image-overlay {
+  opacity: 1;
+}
+
+.image-overlay span {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.admin-input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.admin-input-with-prefix {
+  padding-left: 2.25rem;
+}
+
+.admin-input-error {
+  border-color: #fc8181 !important;
+  background-color: #fff5f5 !important;
+}
+
+.admin-input-error:focus {
+  border-color: #e53e3e !important;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1) !important;
+}
+
+.admin-error-text {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
+}
+
+.admin-btn-primary-gradient {
+  background: linear-gradient(135deg, #001238 0%, #001a4d 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn-primary-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.admin-btn-primary-gradient:hover::before {
+  left: 100%;
+}
+
+.admin-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Smooth scroll for modal */
+.admin-modal-enhanced::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-modal-enhanced::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.admin-modal-enhanced::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 10px;
+}
+
+.admin-modal-enhanced::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Animations */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-modal-enhanced {
+  animation: modalSlideIn 0.3s ease-out;
+}
