@@ -10,7 +10,7 @@ export default function SecondSection() {
 
     setTimeout(() => {
       navigate("/collections");
-    }, 800); 
+    }, 800);
   };
 
   const categories = [
@@ -84,7 +84,11 @@ export default function SecondSection() {
         </div>
       )}
 
-      <div className="heading-primary text-center mb-16">
+      <div
+        className="heading-primary text-center mb-16"
+        data-aos="fade-down"
+        data-aos-duration="800"
+      >
         Discover the Legacy of Marwari Craftsmanship
       </div>
 
@@ -94,6 +98,9 @@ export default function SecondSection() {
             key={index}
             onClick={handleCategoryClick}
             className="category-card group relative h-96 overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay={index * 100}
           >
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
@@ -124,10 +131,19 @@ export default function SecondSection() {
       </div>
 
       <div className="mt-20 text-center">
-        <div className="heading-tertiary mb-4">
+        <div
+          className="heading-tertiary mb-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
           Crafted with Passion, Delivered with Pride
         </div>
-        <p className="paragraph max-w-3xl mx-auto">
+        <p
+          className="paragraph max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
           Each piece in our collection tells a story of heritage, craftsmanship,
           and attention to detail. From traditional Marwari designs to
           contemporary interpretations, we bring you the finest in Indian

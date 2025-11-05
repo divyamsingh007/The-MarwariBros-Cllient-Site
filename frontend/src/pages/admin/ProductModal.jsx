@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiX, FiImage } from "react-icons/fi";
+import api from "../../utils/api";
+import { API_PATH } from "../../utils/apiPaths";
 
 export default function ProductModal({ product, category, onClose, onSave }) {
   const [formData, setFormData] = useState({
@@ -49,10 +51,24 @@ export default function ProductModal({ product, category, onClose, onSave }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) {
+      try {
+        const response = await api.post(API_PATH.PRODUCTS,{
+          name: formData.name,
+          description: formData.description,
+          price: formData.price,
+          category: formData.category,
+          stock: formData.stock,
+          images:{
+            url: formData.image
+          }
+        })
+      } catch (error) {
+        
+      }
       onSave(formData);
     }
   };
@@ -126,7 +142,7 @@ export default function ProductModal({ product, category, onClose, onSave }) {
             <div className="admin-grid-2">
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="price">
-                  Price ($) *
+                  Price *
                 </label>
                 <input
                   id="price"

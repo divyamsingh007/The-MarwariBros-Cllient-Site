@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import {
   createProduct,
   getAllProducts,
@@ -10,26 +10,30 @@ import {
   getProductsByCategory,
   getFeaturedProducts,
   getBestSellingProducts,
-  updateProductStock
-} from '../controllers/product.controller.js';
+  updateProductStock,
+} from "../controllers/product.controller.js";
+import {
+  verifyJWT,
+  isAdmin,
+  isSellerOrAdmin,
+  optionalAuth,
+} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Special routes (must be before /:id)
-router.get('/featured', getFeaturedProducts);
-router.get('/best-sellers', getBestSellingProducts);
-router.get('/admin', getAllProductsAdmin);
-router.get('/category/:category', getProductsByCategory);
-router.get('/slug/:slug', getProductBySlug);
+// Public routes (no auth required)
+router.get("/featured", getFeaturedProducts);
+router.get("/best-sellers", getBestSellingProducts);
+router.get("/category/:category", getProductsByCategory);
+router.get("/slug/:slug", getProductBySlug);
+router.get("/", optionalAuth, getAllProducts);
+router.get("/:id", getProductById);
 
-// CRUD routes
-router.post('/', createProduct);
-router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-router.put('/:id', updateProduct);
-router.delete('/:id', deleteProduct);
-
-// Stock management
-router.patch('/:id/stock', updateProductStock);
+// Admin/Seller routes
+router.get("/admin", verifyJWT, isAdmin, getAllProductsAdmin);
+router.post("/", verifyJWT, isSellerOrAdmin, createProduct);
+router.put("/:id", verifyJWT, isSellerOrAdmin, updateProduct);
+router.delete("/:id", verifyJWT, isSellerOrAdmin, deleteProduct);
+router.patch("/:id/stock", verifyJWT, isSellerOrAdmin, updateProductStock);
 
 export default router;

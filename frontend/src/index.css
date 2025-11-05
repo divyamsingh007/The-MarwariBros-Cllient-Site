@@ -206,6 +206,159 @@ body {
   }
 }
 
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Section Professional Animations */
+@keyframes heroTitleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSubtitleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDescriptionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCtaFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroImageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Hero Section Animation Classes */
+.hero-title-animate {
+  opacity: 0;
+  animation: heroTitleSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.hero-subtitle-animate {
+  opacity: 0;
+  animation: heroSubtitleSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s
+    forwards;
+}
+
+.hero-description-animate {
+  opacity: 0;
+  animation: heroDescriptionFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s
+    forwards;
+}
+
+.hero-cta-animate {
+  opacity: 0;
+  animation: heroCtaFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+.hero-image-animate {
+  opacity: 0;
+  animation: heroImageSlideIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* Navbar Entry Animations */
+@keyframes navbarSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navbarLogoFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes navbarLinkFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-slide-down {
+  animation: navbarSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.navbar-logo-animate {
+  opacity: 0;
+  animation: navbarLogoFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.navbar-link-animate {
+  opacity: 0;
+  animation: navbarLinkFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.navbar-hamburger-animate {
+  opacity: 0;
+  animation: navbarLogoFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* Page Transition Animation */
+.page-fade-in {
+  animation: pageFadeIn 0.6s ease-out forwards;
+}
+
 @keyframes pulseScale {
   0%,
   100% {

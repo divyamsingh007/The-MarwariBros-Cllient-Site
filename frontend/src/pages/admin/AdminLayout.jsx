@@ -9,6 +9,7 @@ import {
   FiX,
   FiSearch,
 } from "react-icons/fi";
+import { clearAuthToken } from "../../utils/api";
 import "./admin.css";
 
 function SidebarLink({ to, icon: Icon, children, onClick }) {
@@ -42,6 +43,14 @@ export default function AdminLayout() {
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
+  };
+
+  const handleLogout = () => {
+    // Clear all authentication tokens
+    clearAuthToken();
+    closeSidebar();
+    // Redirect to login page
+    navigate("/admin/login", { replace: true });
   };
 
   return (
@@ -97,7 +106,6 @@ export default function AdminLayout() {
             </SidebarLink>
           </div>
 
-
           <SidebarLink
             to="/admin/settings"
             icon={FiSettings}
@@ -108,10 +116,7 @@ export default function AdminLayout() {
 
           <button
             className="admin-logout-btn"
-            onClick={() => {
-              closeSidebar();
-              navigate("/");
-            }}
+            onClick={handleLogout}
             title="Logout"
           >
             <FiLogOut className="admin-nav-icon" />

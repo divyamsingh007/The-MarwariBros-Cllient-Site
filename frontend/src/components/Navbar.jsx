@@ -6,18 +6,21 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="z-50 w-full bg-[#F9F9F9] border-b-2 border-black fixed top-0 left-0 mt-4">
+      <nav className="z-50 w-full bg-[#F9F9F9] border-b-2 border-black fixed top-0 left-0 -mt-12 navbar-slide-down">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-4 md:py-6 lg:py-8">
-            <div className="nav-logo-name flex-1 md:flex-none text-center md:text-left">
+            <div className="nav-logo-name flex-1 md:flex-none text-center md:text-left navbar-logo-animate">
               <h1 className="heading-primary !text-2xl sm:!text-3xl md:!text-4xl lg:!text-5xl">
                 The MarwariBros
               </h1>
             </div>
 
             <div className="nav-logo-items hidden md:block">
-              <ul className="flex items-center gap-4 lg:gap-7">
-                <li>
+              <ul className="flex items-center gap-9 lg:gap-7">
+                <li
+                  className="navbar-link-animate"
+                  style={{ animationDelay: "0.2s" }}
+                >
                   <Link
                     to={"/"}
                     className="hover:opacity-80 transition-opacity"
@@ -27,7 +30,10 @@ export default function Navbar() {
                     </h3>
                   </Link>
                 </li>
-                <li>
+                <li
+                  className="navbar-link-animate"
+                  style={{ animationDelay: "0.3s" }}
+                >
                   <Link
                     to={"/about"}
                     className="hover:opacity-80 transition-opacity"
@@ -37,7 +43,10 @@ export default function Navbar() {
                     </h3>
                   </Link>
                 </li>
-                <li>
+                <li
+                  className="navbar-link-animate"
+                  style={{ animationDelay: "0.4s" }}
+                >
                   <Link
                     to={"/collections"}
                     className="hover:opacity-80 transition-opacity"
@@ -47,7 +56,10 @@ export default function Navbar() {
                     </h3>
                   </Link>
                 </li>
-                <li>
+                <li
+                  className="navbar-link-animate"
+                  style={{ animationDelay: "0.5s" }}
+                >
                   <Link
                     to={"/admin"}
                     className="hover:opacity-80 transition-opacity"
@@ -61,7 +73,7 @@ export default function Navbar() {
             </div>
 
             <button
-              className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+              className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors navbar-hamburger-animate"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle mobile menu"
             >

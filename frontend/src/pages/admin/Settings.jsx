@@ -25,7 +25,7 @@ export default function Settings() {
   };
 
   return (
-    <div>
+    <div className="page-fade-in">
       <h2 className="admin-card-title mb-6">Settings</h2>
 
       <form onSubmit={handleSave}>
@@ -79,7 +79,7 @@ export default function Settings() {
               </select>
             </div>
           </div>
-          
+
           <div className="admin-card">
             <h3 className="admin-card-title">
               <FiLock style={{ display: "inline", marginRight: "0.5rem" }} />
@@ -100,8 +100,6 @@ export default function Settings() {
                 Change Password
               </button>
             </div>
-
-            
           </div>
 
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>

@@ -87,7 +87,7 @@ export default function CollectionsPage({ category }) {
   });
 
   return (
-    <div>
+    <div className="page-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="admin-card-title" style={{ marginBottom: "0.25rem" }}>

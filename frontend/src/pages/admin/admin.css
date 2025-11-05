@@ -2,7 +2,8 @@
   display: flex;
   min-height: 100vh;
   background-color: #f5f7fa;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
   color: #1a202c;
 }
 
@@ -630,12 +631,699 @@
   }
 }
 
-.mb-4 { margin-bottom: 1rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mt-4 { margin-top: 1rem; }
-.gap-4 { gap: 1rem; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.justify-end { justify-content: flex-end; }
-.w-full { width: 100%; }
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.w-full {
+  width: 100%;
+}
+
+/* Login Page Styles */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #f5f7fa;
+}
+
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #001238 0%, #001a4d 50%, #002461 100%);
+  opacity: 0.03;
+  z-index: 0;
+}
+
+.login-background::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80%;
+  height: 150%;
+  background: radial-gradient(
+    circle,
+    rgba(197, 164, 109, 0.1) 0%,
+    transparent 70%
+  );
+  animation: loginPulse 15s ease-in-out infinite;
+}
+
+.login-background::after {
+  content: "";
+  position: absolute;
+  bottom: -50%;
+  left: -20%;
+  width: 80%;
+  height: 150%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 18, 56, 0.05) 0%,
+    transparent 70%
+  );
+  animation: loginPulse 15s ease-in-out infinite reverse;
+}
+
+@keyframes loginPulse {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.1) translateY(-20px);
+  }
+}
+
+.login-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem;
+  background: #ffffff;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 18, 56, 0.15);
+  animation: loginSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes loginSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left Side - Branding */
+.login-brand-section {
+  background: linear-gradient(135deg, #001238 0%, #001a4d 100%);
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-brand-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(197, 164, 109, 0.1) 0%,
+    transparent 70%
+  );
+  animation: brandGlow 8s ease-in-out infinite;
+}
+
+@keyframes brandGlow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-20px, -20px) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.login-brand-content {
+  position: relative;
+  z-index: 1;
+}
+
+.login-logo-wrapper {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.login-logo-accent {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #c5a46d 0%, rgba(197, 164, 109, 0.3) 100%);
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  animation: accentSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+@keyframes accentSlide {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 60px;
+  }
+}
+
+.login-brand-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+  animation: titleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-brand-subtitle {
+  font-family: "GFS Didot", serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #c5a46d;
+  margin: 0.5rem 0 0 0;
+  animation: titleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.login-brand-divider {
+  width: 80px;
+  height: 2px;
+  background: rgba(197, 164, 109, 0.3);
+  margin: 2rem 0;
+  animation: titleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
+}
+
+.login-brand-description {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2.5rem;
+  animation: titleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  opacity: 0;
+}
+
+.login-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  animation: titleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.login-feature:nth-child(1) {
+  animation-delay: 0.7s;
+}
+.login-feature:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.login-feature:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.login-feature-icon {
+  width: 20px;
+  height: 20px;
+  color: #c5a46d;
+  flex-shrink: 0;
+}
+
+/* Right Side - Form */
+.login-form-section {
+  padding: 4rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-form-header {
+  margin-bottom: 2rem;
+  animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-form-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  color: #001238;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 1px;
+}
+
+.login-form-subtitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  color: #718096;
+  margin: 0;
+}
+
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #fff5f5;
+  border: 1px solid #fc8181;
+  border-radius: 0.75rem;
+  color: #c53030;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+  animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.login-error-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.login-form {
+  animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.login-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-label {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.login-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  color: #a0aec0;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.login-input-wrapper:focus-within .login-input-icon {
+  color: #001238;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  color: #2d3748;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.login-input::placeholder {
+  color: #cbd5e0;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #001238;
+  box-shadow: 0 0 0 4px rgba(0, 18, 56, 0.1);
+  transform: translateY(-2px);
+}
+
+.login-input:disabled {
+  background: #f7fafc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.login-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.login-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.login-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  accent-color: #001238;
+}
+
+.login-checkbox-label {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9375rem;
+  color: #4a5568;
+  user-select: none;
+}
+
+.login-forgot-link {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9375rem;
+  color: #001238;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-forgot-link:hover {
+  color: #c5a46d;
+}
+
+.login-submit-btn {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #001238 0%, #001a4d 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 18, 56, 0.2);
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 18, 56, 0.3);
+}
+
+.login-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-submit-btn--loading {
+  pointer-events: none;
+}
+
+.login-submit-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.login-spinner {
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+.login-spinner-circle {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 25;
+  animation: spinCircle 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinCircle {
+  0% {
+    stroke-dashoffset: 75;
+  }
+  50% {
+    stroke-dashoffset: 25;
+  }
+  100% {
+    stroke-dashoffset: 75;
+  }
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
+  animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.login-divider span {
+  padding: 0 1rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.875rem;
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+.login-secondary-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: #ffffff;
+  color: #2d3748;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  opacity: 0;
+}
+
+.login-secondary-btn:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.login-secondary-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.login-footer-text {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9375rem;
+  color: #718096;
+  animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+  opacity: 0;
+}
+
+.login-footer-link {
+  color: #001238;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-footer-link:hover {
+  color: #c5a46d;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .login-content {
+    grid-template-columns: 1fr;
+    margin: 1rem;
+  }
+
+  .login-brand-section {
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .login-logo-accent {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .login-brand-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .login-features {
+    align-items: center;
+  }
+
+  .login-form-section {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    align-items: flex-start;
+  }
+
+  .login-content {
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+
+  .login-brand-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-brand-title {
+    font-size: 2.5rem;
+  }
+
+  .login-brand-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .login-form-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-form-title {
+    font-size: 1.75rem;
+  }
+
+  .login-form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-brand-section {
+    display: none;
+  }
+
+  .login-form-section {
+    padding: 2rem 1rem;
+  }
+
+  .login-input {
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+  }
+
+  .login-submit-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 1rem;
+  }
+}

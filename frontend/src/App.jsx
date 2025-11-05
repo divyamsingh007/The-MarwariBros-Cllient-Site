@@ -7,11 +7,13 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Collections from "./pages/Collections";
 import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import CollectionsPage from "./pages/admin/CollectionsPage";
 import Settings from "./pages/admin/Settings";
+import Login from "./pages/admin/Login";
 
 function App() {
   return (
@@ -22,8 +24,18 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/collections" element={<Collections />} />
 
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin/login" element={<Login />} />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="men" element={<CollectionsPage category="Men" />} />
           <Route path="women" element={<CollectionsPage category="Women" />} />
           <Route

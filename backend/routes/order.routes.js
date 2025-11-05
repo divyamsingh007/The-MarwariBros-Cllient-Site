@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import {
   createOrder,
   getAllOrders,
@@ -8,24 +8,26 @@ import {
   updatePaymentStatus,
   cancelOrder,
   deleteOrder,
-  getOrderStats
-} from '../controllers/order.controller.js';
+  getOrderStats,
+} from "../controllers/order.controller.js";
+import { verifyJWT, isAdmin } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Special routes
-router.get('/stats', getOrderStats);
-router.get('/user/:userId', getUserOrders);
+// All order routes require authentication
+router.use(verifyJWT);
 
-// CRUD routes
-router.post('/', createOrder);
-router.get('/', getAllOrders);
-router.get('/:id', getOrderById);
-router.delete('/:id', deleteOrder);
+// User routes
+router.post("/", createOrder);
+router.get("/user/:userId", getUserOrders);
+router.get("/:id", getOrderById);
+router.put("/:id/cancel", cancelOrder);
 
-// Order management
-router.put('/:id/status', updateOrderStatus);
-router.put('/:id/payment', updatePaymentStatus);
-router.put('/:id/cancel', cancelOrder);
+// Admin routes
+router.get("/stats", isAdmin, getOrderStats);
+router.get("/", isAdmin, getAllOrders);
+router.put("/:id/status", isAdmin, updateOrderStatus);
+router.put("/:id/payment", isAdmin, updatePaymentStatus);
+router.delete("/:id", isAdmin, deleteOrder);
 
 export default router;

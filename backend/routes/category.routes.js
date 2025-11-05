@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import {
   createCategory,
   getAllCategories,
@@ -7,21 +7,22 @@ import {
   updateCategory,
   deleteCategory,
   getSubcategories,
-  getFeaturedCategories
-} from '../controllers/category.controller.js';
+  getFeaturedCategories,
+} from "../controllers/category.controller.js";
+import { verifyJWT, isAdmin } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Special routes
-router.get('/featured', getFeaturedCategories);
-router.get('/slug/:slug', getCategoryBySlug);
-router.get('/:id/subcategories', getSubcategories);
+// Public routes
+router.get("/featured", getFeaturedCategories);
+router.get("/slug/:slug", getCategoryBySlug);
+router.get("/:id/subcategories", getSubcategories);
+router.get("/", getAllCategories);
+router.get("/:id", getCategoryById);
 
-// CRUD routes
-router.post('/', createCategory);
-router.get('/', getAllCategories);
-router.get('/:id', getCategoryById);
-router.put('/:id', updateCategory);
-router.delete('/:id', deleteCategory);
+// Admin routes
+router.post("/", verifyJWT, isAdmin, createCategory);
+router.put("/:id", verifyJWT, isAdmin, updateCategory);
+router.delete("/:id", verifyJWT, isAdmin, deleteCategory);
 
 export default router;

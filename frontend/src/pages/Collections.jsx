@@ -11,7 +11,7 @@ export default function Collections() {
     setActiveCategory(categoryId);
 
     if (collectionsGridRef.current) {
-      const offset = 100; 
+      const offset = 100;
       const elementPosition =
         collectionsGridRef.current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
@@ -245,7 +245,7 @@ export default function Collections() {
       : collections.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9]">
+    <div className="min-h-screen bg-[#f9f9f9] page-fade-in">
       <Navbar></Navbar>
 
       <section className="mt-16 pt-24 md:pt-32 pb-20 bg-[#001238] relative overflow-hidden">
