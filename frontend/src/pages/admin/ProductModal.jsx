@@ -65,7 +65,9 @@ export default function ProductModal({ product, category, onClose, onSave }) {
           images:{
             url: formData.image
           }
+
         })
+        console.log(response)
       } catch (error) {
         
       }
