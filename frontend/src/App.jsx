@@ -10,11 +10,13 @@ import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
 import Wishlist from "./pages/Wishlist";
 import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import CollectionsPage from "./pages/admin/CollectionsPage";
 import Settings from "./pages/admin/Settings";
+import Login from "./pages/admin/Login";
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -46,6 +48,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="men" element={<CollectionsPage category="Men" />} />
           <Route path="women" element={<CollectionsPage category="Women" />} />
           <Route

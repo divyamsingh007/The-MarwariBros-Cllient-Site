@@ -60,7 +60,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="page-fade-in">
       <div
         className="admin-card mb-6"
         style={{ textAlign: "center", padding: "3rem 2rem" }}

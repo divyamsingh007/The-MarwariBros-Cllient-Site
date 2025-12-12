@@ -18,7 +18,7 @@ export default function HeroSection() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[calc(100vh-120px)] pt-16 sm:pt-20 md:pt-24 lg:pt-8">
               <div className="lg:col-span-5 xl:col-span-4 order-2 lg:order-1 lg:flex justify-center lg:justify-start hidden">
-                <div className="relative group">
+                <div className="relative group hero-image-animate">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 group-hover:scale-105">
                     <img
                       src="/Dress-01.jpg"
@@ -34,16 +34,16 @@ export default function HeroSection() {
 
               <div className="lg:col-span-7 xl:col-span-8 order-1 lg:order-2 text-center lg:text-left space-y-6 sm:space-y-8 lg:space-y-10">
                 <div className="space-y-4 lg:space-y-6">
-                  <h1 className="heading-primary !text-[#F9F9F9] !text-4xl sm:!text-5xl md:!text-6xl lg:!text-7xl xl:!text-8xl !leading-tight">
+                  <h1 className="heading-primary !text-[#F9F9F9] !text-4xl sm:!text-5xl md:!text-6xl lg:!text-7xl xl:!text-8xl !leading-tight hero-title-animate">
                     The MarwariBros
                   </h1>
 
-                  <h2 className="heading-tertiary !text-lg sm:!text-xl md:!text-2xl lg:!text-3xl xl:!text-4xl !leading-relaxed">
+                  <h2 className="heading-tertiary !text-lg sm:!text-xl md:!text-2xl lg:!text-3xl xl:!text-4xl !leading-relaxed hero-subtitle-animate">
                     The Legacy & Suit Is What We Wear
                   </h2>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 hero-description-animate">
                   <p className="paragraph !text-[#F9F9F9] !text-base sm:!text-lg md:!text-xl lg:!text-xl xl:!text-2xl !leading-relaxed max-w-none lg:max-w-2xl opacity-90">
                     At The Marwari Brothers, what you see is just the beginning.
                   </p>
@@ -55,7 +55,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="pt-4 sm:pt-6 lg:pt-8">
-                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center lg:items-start lg:justify-start">
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center lg:items-start lg:justify-start hero-cta-animate">
                     <div className="relative w-full sm:w-auto sm:flex-1 lg:flex-initial">
                       <input
                         type="text"

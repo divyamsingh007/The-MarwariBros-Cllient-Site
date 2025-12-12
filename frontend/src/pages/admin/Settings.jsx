@@ -128,7 +128,7 @@ export default function Settings() {
   };
 
   return (
-    <div>
+    <div className="page-fade-in">
       <h2 className="admin-card-title mb-6">Settings</h2>
 
       <div style={{ display: "grid", gap: "1.5rem" }}>

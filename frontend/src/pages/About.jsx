@@ -60,7 +60,7 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9]">
+    <div className="min-h-screen bg-[#f9f9f9] page-fade-in">
       <Navbar></Navbar>
 
       <section className="mt-16 pt-24 md:pt-32 pb-16 bg-[#001238] relative overflow-hidden">

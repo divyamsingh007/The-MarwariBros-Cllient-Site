@@ -35,7 +35,11 @@ export default function Footer() {
 
       <div className="relative z-10 h-full flex flex-col">
         <div className="flex-1 container mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl">
-          <div className="space-y-8">
+          <div
+            className="space-y-8"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
             <div className="space-y-6">
               <h1 className="heading-primary !text-[#f9f9f9] !text-4xl lg:!text-5xl">
                 The MarwariBros
@@ -131,7 +135,12 @@ export default function Footer() {
               </div>
             </div> */}
 
-            <div className="space-y-4">
+            <div
+              className="space-y-4"
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="100"
+            >
               <h3 className="heading-quaternary !text-[#c5a46d] !text-lg">
                 Get in Touch
               </h3>
@@ -152,7 +161,11 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="bg-[#f9f9f9]/10 backdrop-blur-sm rounded-2xl p-8 border border-[#c5a46d]/20">
+          <div
+            className="bg-[#f9f9f9]/10 backdrop-blur-sm rounded-2xl p-8 border border-[#c5a46d]/20"
+            data-aos="fade-left"
+            data-aos-duration="800"
+          >
             <div className="mb-6">
               <h2 className="heading-secondary !text-[#c5a46d] !text-2xl mb-2">
                 Let's Create Something Beautiful
@@ -253,7 +266,11 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-[#c5a46d]/20 py-6">
-          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center max-w-7xl">
+          <div
+            className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center max-w-7xl"
+            data-aos="fade-up"
+            data-aos-duration="600"
+          >
             <div className="text-[#f9f9f9]/70 text-sm mb-4 md:mb-0">
               © 2025 The Marwari Brothers. All rights reserved.
             </div>

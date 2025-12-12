@@ -1,8 +1,10 @@
+
 import asyncHandler from '../utils/asyncHandler.js';
 import ApiError from '../utils/ApiError.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import { User, Cart, Wishlist } from '../models/index.js';
 import jwt from 'jsonwebtoken';
+
 
 // @desc    Register a new user
 // @route   POST /api/v1/users/register

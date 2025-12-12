@@ -79,7 +79,7 @@ export default function ProductModal({ product, category, onClose, onSave }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) {
