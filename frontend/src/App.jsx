@@ -16,19 +16,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import CollectionsPage from "./pages/admin/CollectionsPage";
 import Settings from "./pages/admin/Settings";
-import Login from "./pages/admin/Login";
-
-// Protected Route Component
-function ProtectedRoute({ children }) {
-  const user = localStorage.getItem('user');
-  const token = localStorage.getItem('accessToken');
-  
-  if (!user || !token) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-}
+import AdminLogin from "./pages/admin/Login";
 
 function App() {
   return (
@@ -42,11 +30,18 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
 
-        <Route path="/admin" element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }>
+        {/* Admin Login Route - No protection needed */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        {/* Protected Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="men" element={<CollectionsPage category="Men" />} />

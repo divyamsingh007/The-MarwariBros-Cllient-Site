@@ -116,13 +116,7 @@ export default function AdminLayout() {
 
           <button
             className="admin-logout-btn"
-            onClick={() => {
-              // Clear auth data
-              localStorage.removeItem('user');
-              localStorage.removeItem('accessToken');
-              closeSidebar();
-              navigate("/login");
-            }}
+            onClick={handleLogout}
             title="Logout"
           >
             <FiLogOut className="admin-nav-icon" />

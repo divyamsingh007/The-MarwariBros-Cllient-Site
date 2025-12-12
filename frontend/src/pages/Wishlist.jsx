@@ -7,7 +7,8 @@ import { FiTrash2, FiShoppingCart } from "react-icons/fi";
 
 export default function Wishlist() {
   const navigate = useNavigate();
-  const { wishlist, removeFromWishlist, clearWishlist, loading } = useWishlist();
+  const { wishlist, removeFromWishlist, clearWishlist, loading } =
+    useWishlist();
 
   const handleRemove = async (productId) => {
     if (window.confirm("Remove this item from wishlist?")) {
@@ -16,26 +17,44 @@ export default function Wishlist() {
   };
 
   const handleClearAll = async () => {
-    if (window.confirm("Are you sure you want to clear your entire wishlist?")) {
+    if (
+      window.confirm("Are you sure you want to clear your entire wishlist?")
+    ) {
       await clearWishlist();
     }
   };
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen">
+    <div className="min-h-screen bg-[#f9f9f9] page-fade-in">
       <Navbar />
-      
-      <section className="pt-32 pb-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="heading-primary !text-[#001238] mb-4">
+
+      {/* Hero Section */}
+      <section className="mt-16 pt-24 md:pt-32 pb-16 bg-[#001238] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-10 w-20 h-20 border border-[#c5a46d] rotate-45"></div>
+          <div className="absolute top-40 right-20 w-16 h-16 border border-[#c5a46d] rotate-12"></div>
+          <div className="absolute bottom-20 left-1/4 w-12 h-12 border border-[#c5a46d] rotate-45"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="heading-primary !text-[#f9f9f9] !text-4xl sm:!text-5xl md:!text-6xl lg:!text-7xl mb-6">
               My Wishlist
             </h1>
-            <p className="paragraph !text-[#666]">
-              {wishlist.length} item{wishlist.length !== 1 ? 's' : ''} saved
+            <h2 className="heading-tertiary !text-xl sm:!text-2xl md:!text-3xl lg:!text-4xl mb-4">
+              Your Saved Treasures
+            </h2>
+            <p className="paragraph !text-[#f9f9f9] !text-lg sm:!text-xl opacity-90">
+              {wishlist.length} {wishlist.length !== 1 ? "items" : "item"} saved
+              for later
             </p>
           </div>
+        </div>
+      </section>
 
+      {/* Content Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {wishlist.length === 0 ? (
             <div className="text-center py-20">
               <div className="mb-6">
@@ -90,8 +109,12 @@ export default function Wishlist() {
                     >
                       <div className="relative h-64 overflow-hidden">
                         <img
-                          src={product?.images?.[0]?.url || product?.image || 'https://via.placeholder.com/400'}
-                          alt={product?.name || 'Product'}
+                          src={
+                            product?.images?.[0]?.url ||
+                            product?.image ||
+                            "https://via.placeholder.com/400"
+                          }
+                          alt={product?.name || "Product"}
                           className="w-full h-full object-cover"
                         />
                         <button
@@ -105,21 +128,25 @@ export default function Wishlist() {
 
                       <div className="p-4">
                         <h3 className="heading-tertiary !text-base !text-[#001238] mb-2 line-clamp-2">
-                          {product?.name || 'Unnamed Product'}
+                          {product?.name || "Unnamed Product"}
                         </h3>
-                        
+
                         <p className="paragraph-small !text-[#666] mb-3 line-clamp-2">
-                          {product?.description || 'No description available'}
+                          {product?.description || "No description available"}
                         </p>
 
                         <div className="flex items-center justify-between mb-4">
                           <span className="heading-quaternary !text-lg !text-[#c5a46d] font-bold">
-                            ₹{product?.price?.toLocaleString() || 'N/A'}
+                            ₹{product?.price?.toLocaleString() || "N/A"}
                           </span>
                           {product?.stock > 0 ? (
-                            <span className="text-green-600 text-xs font-semibold">In Stock</span>
+                            <span className="text-green-600 text-xs font-semibold">
+                              In Stock
+                            </span>
                           ) : (
-                            <span className="text-red-600 text-xs font-semibold">Out of Stock</span>
+                            <span className="text-red-600 text-xs font-semibold">
+                              Out of Stock
+                            </span>
                           )}
                         </div>
 
