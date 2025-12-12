@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   createReview,
   getProductReviews,
@@ -8,29 +8,24 @@ import {
   approveReview,
   rejectReview,
   markReviewHelpful,
-  addSellerResponse,
-} from "../controllers/review.controller.js";
-import {
-  verifyJWT,
-  isAdmin,
-  isSellerOrAdmin,
-} from "../middlewares/auth.middleware.js";
+  addSellerResponse
+} from '../controllers/review.controller.js';
 
 const router = express.Router();
 
-// Public routes
-router.get("/product/:productId", getProductReviews);
-router.get("/:id", getReviewById);
+// Review routes
+router.post('/', createReview);
+router.get('/product/:productId', getProductReviews);
+router.get('/:id', getReviewById);
+router.put('/:id', updateReview);
+router.delete('/:id', deleteReview);
 
-// User routes (require authentication)
-router.post("/", verifyJWT, createReview);
-router.put("/:id", verifyJWT, updateReview);
-router.delete("/:id", verifyJWT, deleteReview);
-router.post("/:id/helpful", verifyJWT, markReviewHelpful);
+// Admin routes
+router.put('/:id/approve', approveReview);
+router.put('/:id/reject', rejectReview);
+router.post('/:id/response', addSellerResponse);
 
-// Admin/Seller routes
-router.put("/:id/approve", verifyJWT, isAdmin, approveReview);
-router.put("/:id/reject", verifyJWT, isAdmin, rejectReview);
-router.post("/:id/response", verifyJWT, isSellerOrAdmin, addSellerResponse);
+// User interaction
+router.post('/:id/helpful', markReviewHelpful);
 
 export default router;

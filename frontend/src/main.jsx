@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./index.css";
 import App from "./App";
+import { WishlistProvider } from "./context/WishlistContext";
 
 // Initialize AOS
 AOS.init({
@@ -19,6 +20,8 @@ AOS.init({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <App />
+    <WishlistProvider>
+      <App />
+    </WishlistProvider>
   </BrowserRouter>
 );

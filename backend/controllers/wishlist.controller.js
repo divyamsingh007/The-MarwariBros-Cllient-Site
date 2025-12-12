@@ -8,7 +8,7 @@ import { Wishlist } from '../models/index.js';
 // @access  Private
 export const getWishlist = asyncHandler(async (req, res) => {
   let wishlist = await Wishlist.findOne({ user: req.params.userId })
-    .populate('items.product', 'name price images averageRating stock');
+    .populate('items.product', 'name description price compareAtPrice images averageRating stock slug category subCategory brand');
 
   if (!wishlist) {
     wishlist = await Wishlist.create({ user: req.params.userId, items: [] });
@@ -35,7 +35,7 @@ export const addToWishlist = asyncHandler(async (req, res) => {
 
   // Populate wishlist items
   wishlist = await Wishlist.findById(wishlist._id)
-    .populate('items.product', 'name price images averageRating stock');
+    .populate('items.product', 'name description price compareAtPrice images averageRating stock slug category subCategory brand');
 
   res.status(200).json(
     new ApiResponse(200, { wishlist }, 'Item added to wishlist successfully')
@@ -56,7 +56,7 @@ export const removeFromWishlist = asyncHandler(async (req, res) => {
 
   // Populate wishlist items
   const updatedWishlist = await Wishlist.findById(wishlist._id)
-    .populate('items.product', 'name price images averageRating stock');
+    .populate('items.product', 'name description price compareAtPrice images averageRating stock slug category subCategory brand');
 
   res.status(200).json(
     new ApiResponse(200, { wishlist: updatedWishlist }, 'Item removed from wishlist successfully')

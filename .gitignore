@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 /node_modules
 node_modules/
 */node_modules
 .env
 *.env
-=======
-/node_modules
-node_modules/
-*/node_modules
-.env
-*.env
->>>>>>> 02c543ba535d23e4e8744623cbb3ed111be96c57
 .DS_Store

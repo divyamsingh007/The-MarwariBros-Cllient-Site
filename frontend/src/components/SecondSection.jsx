@@ -1,47 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { productService } from "../api/services";
 
 export default function SecondSection() {
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const handleCategoryClick = () => {
-    setIsLoading(true);
-
-    setTimeout(() => {
-      navigate("/collections");
-    }, 800);
-  };
-
-  const categories = [
+  const [categories, setCategories] = useState([
     {
       title: "Men's Collection",
       subtitle: "Traditional & Contemporary",
       description:
         "Exquisite sherwanis, kurtas, and tailored suits crafted with precision",
-      backgroundImage: "/Dress-01.jpg", // Placeholder - replace with actual
+      backgroundImage: "/Dress-01.jpg",
+      category: "men",
     },
     {
       title: "Women's Collection",
       subtitle: "Elegant & Timeless",
       description:
         "Beautiful lehengas, sarees, and designer outfits for every occasion",
-      backgroundImage: "/Dress-01.jpg", // Placeholder - replace with actual
+      backgroundImage: "/Dress-01.jpg",
+      category: "women",
     },
     {
       title: "Jewellery",
       subtitle: "Heritage & Modern",
       description:
         "Handcrafted pieces that blend traditional artistry with contemporary design",
-      backgroundImage: "/Dress-01.jpg", // Placeholder - replace with actual
+      backgroundImage: "/Dress-01.jpg",
+      category: "accessories",
     },
     {
       title: "Juttis & Footwear",
       subtitle: "Comfort & Style",
       description: "Authentic handmade juttis and premium footwear collection",
-      backgroundImage: "/Dress-01.jpg", // Placeholder - replace with actual
+      backgroundImage: "/Dress-01.jpg",
+      category: "footwear",
     },
-  ];
+  ]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCategoryImages();
+  }, []);
+
+  const fetchCategoryImages = async () => {
+    try {
+      const response = await productService.getAll({ 
+        isPublished: true,
+        status: 'active'
+      });
+      const products = response.data.data?.products || response.data.data || [];
+      
+      // Update each category with a random product image from that category
+      setCategories(prevCategories => 
+        prevCategories.map(cat => {
+          const categoryProducts = products.filter(
+            p => p.category === cat.category && p.images && p.images.length > 0
+          );
+          
+          if (categoryProducts.length > 0) {
+            const randomProduct = categoryProducts[Math.floor(Math.random() * categoryProducts.length)];
+            const primaryImage = randomProduct.images.find(img => img.isPrimary) || randomProduct.images[0];
+            return {
+              ...cat,
+              backgroundImage: primaryImage?.url || cat.backgroundImage
+            };
+          }
+          
+          return cat;
+        })
+      );
+    } catch (err) {
+      console.error('Failed to fetch category images:', err);
+    }
+  };
+
+  const handleCategoryClick = (categoryName) => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      navigate(`/collections?category=${categoryName}`);
+    }, 800); 
+  };
 
   return (
     <main id="second-section" className="py-16 px-6 md:px-12 lg:px-24 relative">
@@ -96,7 +136,7 @@ export default function SecondSection() {
         {categories.map((category, index) => (
           <div
             key={index}
-            onClick={handleCategoryClick}
+            onClick={() => handleCategoryClick(category.category)}
             className="category-card group relative h-96 overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             data-aos="fade-up"
             data-aos-duration="800"
