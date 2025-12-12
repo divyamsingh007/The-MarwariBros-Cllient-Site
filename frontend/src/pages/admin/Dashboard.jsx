@@ -1,12 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FiShoppingCart,
   FiPackage,
   FiSettings,
+  FiDollarSign,
+  FiUsers,
+  FiTrendingUp,
+  FiShoppingBag,
 } from "react-icons/fi";
+import { adminService, productService } from "../../api/services";
 
 export default function Dashboard() {
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      
+      // Try to fetch admin dashboard stats
+      try {
+        const dashboardResponse = await adminService.getDashboardStats();
+        if (dashboardResponse.data.success) {
+          setStats(dashboardResponse.data.data.stats);
+        }
+      } catch (err) {
+        // If admin endpoint fails, fetch basic product stats
+        console.log('Admin endpoint not available, fetching basic stats');
+        const productsResponse = await productService.getAllAdmin();
+        
+        if (productsResponse.data.success) {
+          const products = productsResponse.data.data.products || productsResponse.data.data;
+          
+          // Calculate basic stats from products
+          const basicStats = {
+            totalProducts: products.length,
+            inStockProducts: products.filter(p => p.stock > 0).length,
+            outOfStockProducts: products.filter(p => p.stock === 0).length,
+            categories: [...new Set(products.map(p => p.category))].length,
+          };
+          
+          setStats(basicStats);
+        }
+      }
+      
+      setError(null);
+    } catch (err) {
+      console.error('Failed to fetch dashboard data:', err);
+      setError('Failed to load dashboard data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div
@@ -31,136 +83,111 @@ export default function Dashboard() {
         </p>
       </div>
 
-      <div className="admin-grid-4 mb-6">
-        <Link
-          to="/collections"
-          className="stat-card"
-          style={{
-            cursor: "pointer",
-            transition: "transform 0.2s",
-            textDecoration: "none",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "2.5rem",
-              color: "#001238",
-              marginBottom: "1rem",
-            }}
-          >
-            <FiShoppingCart />
-          </div>
-          <h3
-            style={{
-              fontSize: "1.25rem",
-              color: "#001238",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Collections
-          </h3>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>
-            Manage your product collections
-          </p>
-        </Link>
-
-        <Link
-          to="/admin/men"
-          className="stat-card"
-          style={{
-            cursor: "pointer",
-            transition: "transform 0.2s",
-            textDecoration: "none",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "2.5rem",
-              color: "#c5a46d",
-              marginBottom: "1rem",
-            }}
-          >
-            <FiPackage />
-          </div>
-          <h3
-            style={{
-              fontSize: "1.25rem",
-              color: "#001238",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Products
-          </h3>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>
-            Add, edit, or remove products
-          </p>
-        </Link>
-
-        <Link
-          to="/admin/settings"
-          className="stat-card"
-          style={{
-            cursor: "pointer",
-            transition: "transform 0.2s",
-            textDecoration: "none",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "2.5rem",
-              color: "#c5a46d",
-              marginBottom: "1rem",
-            }}
-          >
-            <FiSettings />
-          </div>
-          <h3
-            style={{
-              fontSize: "1.25rem",
-              color: "#001238",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Settings
-          </h3>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>
-            Configure store settings
-          </p>
-        </Link>
-      </div>
-
-      <div className="admin-card">
-        <h3 className="admin-card-title">Store Overview</h3>
-        <div
-          className="admin-grid-3"
-          style={{ padding: "1.5rem", gap: "2rem" }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <p
-              style={{ fontSize: "2rem", fontWeight: "bold", color: "#001238" }}
-            >
-              24
-            </p>
-            <p style={{ color: "#666", marginTop: "0.5rem" }}>Total Products</p>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <p
-              style={{ fontSize: "2rem", fontWeight: "bold", color: "#c5a46d" }}
-            >
-              4
-            </p>
-            <p style={{ color: "#666", marginTop: "0.5rem" }}>Categories</p>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <p
-              style={{ fontSize: "2rem", fontWeight: "bold", color: "#001238" }}
-            >
-              18
-            </p>
-            <p style={{ color: "#666", marginTop: "0.5rem" }}>In Stock</p>
-          </div>
+      {/* Stats Grid */}
+      {loading ? (
+        <div className="admin-card" style={{ textAlign: 'center', padding: '3rem' }}>
+          <p style={{ color: '#718096' }}>Loading dashboard...</p>
         </div>
-      </div>
+      ) : error ? (
+        <div className="admin-card" style={{ 
+          textAlign: 'center', 
+          padding: '2rem',
+          backgroundColor: '#FEE2E2',
+          color: '#991B1B'
+        }}>
+          <p>{error}</p>
+          <button 
+            onClick={fetchDashboardData}
+            style={{
+              marginTop: '1rem',
+              padding: '0.5rem 1.5rem',
+              background: '#991B1B',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            Retry
+          </button>
+        </div>
+      ) : (
+        <>
+          {/* Statistics Cards */}
+          <div className="admin-grid-4 mb-6">
+            <div className="stat-card">
+              <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+                <FiPackage />
+              </div>
+              <div className="stat-content">
+                <p className="stat-label">Total Products</p>
+                <p className="stat-value">{stats?.totalProducts || 0}</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
+                <FiShoppingBag />
+              </div>
+              <div className="stat-content">
+                <p className="stat-label">In Stock</p>
+                <p className="stat-value">{stats?.inStockProducts || 0}</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
+                <FiShoppingCart />
+              </div>
+              <div className="stat-content">
+                <p className="stat-label">Categories</p>
+                <p className="stat-value">{stats?.categories || 4}</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
+                <FiTrendingUp />
+              </div>
+              <div className="stat-content">
+                <p className="stat-label">Out of Stock</p>
+                <p className="stat-value">{stats?.outOfStockProducts || 0}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="admin-card mb-6">
+            <h3 className="admin-card-title" style={{ marginBottom: '1.5rem' }}>Quick Actions</h3>
+            <div className="admin-grid-3" style={{ gap: '1rem' }}>
+              <Link
+                to="/admin/men"
+                className="admin-btn admin-btn-primary"
+                style={{ textDecoration: 'none', textAlign: 'center', padding: '1rem' }}
+              >
+                <FiPackage style={{ marginRight: '0.5rem' }} />
+                Manage Men Collection
+              </Link>
+              <Link
+                to="/admin/women"
+                className="admin-btn admin-btn-primary"
+                style={{ textDecoration: 'none', textAlign: 'center', padding: '1rem' }}
+              >
+                <FiPackage style={{ marginRight: '0.5rem' }} />
+                Manage Women Collection
+              </Link>
+              <Link
+                to="/admin/jewellery"
+                className="admin-btn admin-btn-primary"
+                style={{ textDecoration: 'none', textAlign: 'center', padding: '1rem' }}
+              >
+                <FiPackage style={{ marginRight: '0.5rem' }} />
+                Manage Jewellery
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,11 +1,66 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useWishlist } from "../context/WishlistContext";
+import { productService } from "../api/services";
+import { FiHeart } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 
 export default function Collections() {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || "all");
   const [selectedItem, setSelectedItem] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const collectionsGridRef = useRef(null);
+  const { addToWishlist, removeFromWishlist, isInWishlist, wishlist } = useWishlist();
+
+  // Fetch products on mount
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // Update active category when URL params change
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    }
+  }, [searchParams]);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await productService.getAll({ 
+        isPublished: true,
+        status: 'active'
+      });
+      const fetchedProducts = response.data.data?.products || response.data.data || [];
+      setProducts(fetchedProducts);
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+      setError('Failed to load products');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleWishlistToggle = async (e, productId) => {
+    e.stopPropagation();
+    
+    if (isInWishlist(productId)) {
+      const item = wishlist.find(item => item.product?._id === productId || item.product === productId);
+      if (item?._id) {
+        await removeFromWishlist(item._id);
+      }
+    } else {
+      await addToWishlist(productId);
+    }
+  };
 
   const handleCategoryClick = (categoryId) => {
     setActiveCategory(categoryId);
@@ -241,8 +296,8 @@ export default function Collections() {
 
   const filteredCollections =
     activeCategory === "all"
-      ? collections
-      : collections.filter((item) => item.category === activeCategory);
+      ? products
+      : products.filter((item) => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-[#f9f9f9]">
@@ -332,87 +387,113 @@ export default function Collections() {
 
       <section className="py-20 lg:py-32" ref={collectionsGridRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12">
-            {filteredCollections.map((item, index) => (
-              <div
-                key={item.id}
-                className="group cursor-pointer"
-                onClick={() => setSelectedItem(item)}
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#c5a46d]"></div>
+              <p className="mt-4 text-[#666]">Loading collections...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <p className="text-red-500 mb-4">{error}</p>
+              <button
+                onClick={fetchProducts}
+                className="bg-[#001238] text-white py-2 px-6 rounded-full hover:bg-[#001f50] transition-colors"
               >
-                <div className="bg-white overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-                  <div className="relative overflow-hidden h-80 lg:h-96">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                Try Again
+              </button>
+            </div>
+          ) : filteredCollections.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-[#666] text-lg">No products found in this category</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12">
+              {filteredCollections.map((item, index) => (
+                <div
+                  key={item._id}
+                  className="group cursor-pointer"
+                  onClick={() => navigate(`/product/${item._id}`)}
+                >
+                  <div className="bg-white overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+                    <div className="relative overflow-hidden h-80 lg:h-96">
+                      <img
+                        src={item.images?.[0]?.url || 'https://via.placeholder.com/400'}
+                        alt={item.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <p className="paragraph-small !text-[#f9f9f9] !text-sm">
-                        {item.description.substring(0, 80)}...
-                      </p>
-                    </div>
+                      <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <p className="paragraph-small !text-[#f9f9f9] !text-sm">
+                          {item.description?.substring(0, 80)}...
+                        </p>
+                      </div>
 
-                    <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
-                      {item.price.split(" - ")[0]}+
-                    </div>
-                  </div>
-
-                  <div className="p-6 lg:p-8 space-y-4">
-                    <div>
-                      <h3 className="heading-tertiary !text-base !text-[#c5a46d] mb-2">
-                        {item.subtitle}
-                      </h3>
-                      <h2 className="heading-secondary !text-xl !text-[#001238] mb-3">
-                        {item.name}
-                      </h2>
-                      <p className="heading-quaternary !text-[#666] !text-lg font-bold">
-                        {item.price}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {item.features.slice(0, 2).map((feature, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-[#f9f9f9] text-[#001238] rounded-full text-xs border border-[#c5a46d]/30"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                      {item.features.length > 2 && (
-                        <span className="px-3 py-1 bg-[#c5a46d]/10 text-[#c5a46d] rounded-full text-xs">
-                          +{item.features.length - 2} more
-                        </span>
+                      <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
+                        ₹{item.price?.toLocaleString()}
+                      </div>
+                      
+                      {item.stock === 0 && (
+                        <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                          Out of Stock
+                        </div>
                       )}
                     </div>
 
-                    <div className="flex gap-3 pt-4">
-                      <button className="flex-1 bg-[#001238] text-[#f9f9f9] py-2 px-4 rounded-full text-sm font-semibold hover:bg-[#001f50] transition-all duration-300">
-                        View Details
-                      </button>
-                      <button className="px-4 py-2 border border-[#c5a46d] text-[#c5a46d] rounded-full hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    <div className="p-6 lg:p-8 space-y-4">
+                      <div>
+                        <h3 className="heading-tertiary !text-base !text-[#c5a46d] mb-2 capitalize">
+                          {item.category}
+                        </h3>
+                        <h2 className="heading-secondary !text-xl !text-[#001238] mb-3">
+                          {item.name}
+                        </h2>
+                        <p className="heading-quaternary !text-[#666] !text-lg font-bold">
+                          ₹{item.price?.toLocaleString()}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {item.tags?.slice(0, 2).map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-[#f9f9f9] text-[#001238] rounded-full text-xs border border-[#c5a46d]/30"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {item.tags?.length > 2 && (
+                          <span className="px-3 py-1 bg-[#c5a46d]/10 text-[#c5a46d] rounded-full text-xs">
+                            +{item.tags.length - 2} more
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex gap-3 pt-4">
+                        <button className="flex-1 bg-[#001238] text-[#f9f9f9] py-2 px-4 rounded-full text-sm font-semibold hover:bg-[#001f50] transition-all duration-300">
+                          View Details
+                        </button>
+                        <button 
+                          onClick={(e) => handleWishlistToggle(e, item._id)}
+                          className={`px-4 py-2 border rounded-full transition-all duration-300 ${
+                            isInWishlist(item._id)
+                              ? 'bg-[#c5a46d] border-[#c5a46d] text-white'
+                              : 'border-[#c5a46d] text-[#c5a46d] hover:bg-[#c5a46d] hover:text-white'
+                          }`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                          />
-                        </svg>
-                      </button>
+                          {isInWishlist(item._id) ? (
+                            <FaHeart className="w-5 h-5" />
+                          ) : (
+                            <FiHeart className="w-5 h-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -513,8 +594,15 @@ export default function Collections() {
                     <button className="bg-[#001238] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#001f50] transition-colors">
                       Inquire Now
                     </button>
-                    <button className="border border-[#c5a46d] text-[#c5a46d] py-2 px-6 rounded-full hover:bg-[#c5a46d] hover:text-white transition-colors">
-                      Add to Wishlist
+                    <button 
+                      onClick={() => handleWishlistToggle({stopPropagation: () => {}}, selectedItem.id)}
+                      className={`border py-2 px-6 rounded-full transition-colors ${
+                        isInWishlist(selectedItem.id)
+                          ? 'bg-[#c5a46d] border-[#c5a46d] text-white'
+                          : 'border-[#c5a46d] text-[#c5a46d] hover:bg-[#c5a46d] hover:text-white'
+                      }`}
+                    >
+                      {isInWishlist(selectedItem.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                     </button>
                   </div>
                 </div>

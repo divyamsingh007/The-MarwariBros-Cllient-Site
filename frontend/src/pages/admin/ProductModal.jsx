@@ -213,10 +213,10 @@ export default function ProductModal({ product, category, onClose, onSave }) {
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="price">
                   <FiDollarSign style={{ display: "inline", marginRight: "0.5rem" }} />
-                  Price ($) *
+                  Price (₹) *
                 </label>
                 <div className="admin-input-with-icon">
-                  <span className="input-icon">$</span>
+                  <span className="input-icon">₹</span>
                   <input
                     id="price"
                     type="number"

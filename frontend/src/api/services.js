@@ -134,8 +134,8 @@ export const wishlistService = {
     axiosInstance.post(`/wishlist/${userId}/items`, { productId }),
   
   // Remove item from wishlist
-  removeItem: (userId, itemId) => 
-    axiosInstance.delete(`/wishlist/${userId}/items/${itemId}`),
+  removeItem: (userId, productId) => 
+    axiosInstance.delete(`/wishlist/${userId}/items/${productId}`),
   
   // Clear wishlist
   clear: (userId) => axiosInstance.delete(`/wishlist/${userId}`),
@@ -253,6 +253,29 @@ export const adminService = {
   // Get product analytics
   getProductAnalytics: (params = {}) => 
     axiosInstance.get('/admin/analytics/products', { params }),
+  
+  // Update settings
+  updateSettings: (data) => axiosInstance.put('/admin/settings', data),
+  
+  // Get inventory alerts
+  getInventoryAlerts: () => axiosInstance.get('/admin/inventory/alerts'),
+  
+  // Get all customers
+  getCustomers: (params = {}) => axiosInstance.get('/admin/customers', { params }),
+  
+  // Get all orders (admin view)
+  getOrders: (params = {}) => axiosInstance.get('/admin/orders', { params }),
+  
+  // Get all reviews (admin view)
+  getReviews: (params = {}) => axiosInstance.get('/admin/reviews', { params }),
+  
+  // Bulk update products
+  bulkUpdateProducts: (productIds, updates) => 
+    axiosInstance.put('/admin/products/bulk-update', { productIds, updates }),
+  
+  // Export data
+  exportData: (type, params = {}) => 
+    axiosInstance.get(`/admin/export/${type}`, { params }),
 };
 
 export default {

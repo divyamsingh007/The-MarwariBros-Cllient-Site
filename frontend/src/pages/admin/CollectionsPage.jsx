@@ -4,6 +4,14 @@ import ProductModal from "./ProductModal";
 import { FiPlus, FiFilter } from "react-icons/fi";
 import { productService } from "../../api/services";
 
+// Map frontend category names to backend category names
+const categoryMap = {
+  'Men': 'men',
+  'Women': 'women',
+  'Jewellery': 'accessories',
+  'Juttis & Footwear': 'footwear'
+};
+
 export default function CollectionsPage({ category }) {
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(null);
@@ -37,8 +45,11 @@ export default function CollectionsPage({ category }) {
         // Add sorting (newest first)
         params.sort = '-createdAt';
         
+        // Map category to backend format
+        const backendCategory = categoryMap[category] || category.toLowerCase();
+        
         // Fetch products by category using the service
-        const response = await productService.getByCategory(category, params);
+        const response = await productService.getByCategory(backendCategory, params);
         
         // Handle response structure
         if (response.data.success && response.data.data) {
@@ -79,6 +90,8 @@ export default function CollectionsPage({ category }) {
 
   const handleSave = async (productData) => {
     try {
+      console.log('Sending product data:', productData); // Debug log
+      
       if (editing) {
         // Update existing product
         const response = await productService.update(editing._id, productData);
@@ -87,11 +100,8 @@ export default function CollectionsPage({ category }) {
           prev.map((p) => (p._id === editing._id ? updatedProduct : p))
         );
       } else {
-        // Create new product
-        const response = await productService.create({
-          ...productData,
-          category,
-        });
+        // Create new product - productData already has the correct category
+        const response = await productService.create(productData);
         const newProduct = response.data.data?.product || response.data.data;
         setProducts((prev) => [newProduct, ...prev]);
       }
@@ -99,6 +109,7 @@ export default function CollectionsPage({ category }) {
       setEditing(null);
     } catch (error) {
       console.error("Failed to save product:", error);
+      console.error("Error response:", error.response?.data); // More detailed error log
       setError(error.response?.data?.message || "Failed to save product");
     }
   };

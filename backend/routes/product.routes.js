@@ -12,24 +12,27 @@ import {
   getBestSellingProducts,
   updateProductStock
 } from '../controllers/product.controller.js';
+import { verifyJWT, isAdmin } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-// Special routes (must be before /:id)
+// Public routes - no authentication required
 router.get('/featured', getFeaturedProducts);
 router.get('/best-sellers', getBestSellingProducts);
-router.get('/admin', getAllProductsAdmin);
 router.get('/category/:category', getProductsByCategory);
 router.get('/slug/:slug', getProductBySlug);
 
-// CRUD routes
-router.post('/', createProduct);
+// Admin only routes - require authentication and admin role (must come before /:id)
+router.get('/admin', verifyJWT, isAdmin, getAllProductsAdmin);
+
+// More public routes
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
-router.put('/:id', updateProduct);
-router.delete('/:id', deleteProduct);
 
-// Stock management
-router.patch('/:id/stock', updateProductStock);
+// Admin routes for mutations
+router.post('/', verifyJWT, isAdmin, createProduct);
+router.put('/:id', verifyJWT, isAdmin, updateProduct);
+router.delete('/:id', verifyJWT, isAdmin, deleteProduct);
+router.patch('/:id/stock', verifyJWT, isAdmin, updateProductStock);
 
 export default router;

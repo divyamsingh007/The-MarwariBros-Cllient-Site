@@ -340,6 +340,8 @@ export const updateSettings = asyncHandler(async (req, res) => {
   // For now, we'll just return success
   const settings = req.body;
   
+  console.log('✅ Settings updated successfully:', settings);
+  
   res.status(200).json(
     new ApiResponse(200, { settings }, 'Settings updated successfully')
   );

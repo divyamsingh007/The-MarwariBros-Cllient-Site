@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { Product, Category, User } from '../models/index.js';
 import connectMongoDB from '../config/mongoDB.js';
 
-dotenv.config();
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load .env from the backend root directory
+dotenv.config({ path: join(__dirname, '..', '.env') });
 
 const categories = [
   {

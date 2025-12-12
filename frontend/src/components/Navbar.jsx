@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../context/WishlistContext";
+import { FiHeart } from "react-icons/fi";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { wishlistCount } = useWishlist();
 
   return (
     <div>
@@ -55,6 +58,19 @@ export default function Navbar() {
                     <h3 className="heading-quaternary !text-sm lg:!text-xl">
                       Admin
                     </h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/wishlist"}
+                    className="hover:opacity-80 transition-opacity relative"
+                  >
+                    <FiHeart className="text-xl lg:text-2xl" />
+                    {wishlistCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {wishlistCount}
+                      </span>
+                    )}
                   </Link>
                 </li>
               </ul>
@@ -124,6 +140,20 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <h3 className="heading-quaternary !text-base">Admin</h3>
+              </Link>
+              <Link
+                to={"/wishlist"}
+                className="block px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <div className="flex items-center gap-2">
+                  <h3 className="heading-quaternary !text-base">Wishlist</h3>
+                  {wishlistCount > 0 && (
+                    <span className="bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </div>
               </Link>
             </div>
           </div>

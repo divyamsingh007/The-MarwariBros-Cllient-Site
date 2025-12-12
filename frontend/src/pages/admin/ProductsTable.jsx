@@ -64,7 +64,7 @@ export default function ProductsTable({ products = [], onEdit, onDelete }) {
                     </div>
                   )}
                 </td>
-                <td style={{ fontWeight: 600 }}>${product.price.toFixed(2)}</td>
+                <td style={{ fontWeight: 600 }}>₹{product.price.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</td>
                 <td>
                   <span
                     className={`stock-badge ${
