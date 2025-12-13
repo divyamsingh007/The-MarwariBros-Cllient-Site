@@ -12,12 +12,11 @@ import {
   productRoutes,
   orderRoutes,
   cartRoutes,
-  wishlistRoutes,
   reviewRoutes,
   categoryRoutes,
   couponRoutes,
   notificationRoutes,
-  adminRoutes
+  adminRoutes,
 } from "./routes/index.js";
 
 dotenv.config();
@@ -26,10 +25,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -48,7 +49,6 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/cart", cartRoutes);
-app.use("/api/v1/wishlist", wishlistRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/coupons", couponRoutes);

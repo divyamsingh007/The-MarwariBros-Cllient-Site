@@ -2,21 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useWishlist } from "../context/WishlistContext";
 import { productService } from "../api/services";
-import { FiHeart } from "react-icons/fi";
-import { FaHeart } from "react-icons/fa";
 
 export default function Collections() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || "all");
+  const [activeCategory, setActiveCategory] = useState(
+    searchParams.get("category") || "all"
+  );
   const [selectedItem, setSelectedItem] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const collectionsGridRef = useRef(null);
-  const { addToWishlist, removeFromWishlist, isInWishlist, wishlist } = useWishlist();
 
   // Fetch products on mount
   useEffect(() => {
@@ -25,7 +23,7 @@ export default function Collections() {
 
   // Update active category when URL params change
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setActiveCategory(categoryParam);
     }
@@ -35,30 +33,18 @@ export default function Collections() {
     try {
       setLoading(true);
       setError(null);
-      const response = await productService.getAll({ 
+      const response = await productService.getAll({
         isPublished: true,
-        status: 'active'
+        status: "active",
       });
-      const fetchedProducts = response.data.data?.products || response.data.data || [];
+      const fetchedProducts =
+        response.data.data?.products || response.data.data || [];
       setProducts(fetchedProducts);
     } catch (err) {
-      console.error('Failed to fetch products:', err);
-      setError('Failed to load products');
+      console.error("Failed to fetch products:", err);
+      setError("Failed to load products");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleWishlistToggle = async (e, productId) => {
-    e.stopPropagation();
-    
-    if (isInWishlist(productId)) {
-      const item = wishlist.find(item => item.product?._id === productId || item.product === productId);
-      if (item?._id) {
-        await removeFromWishlist(item._id);
-      }
-    } else {
-      await addToWishlist(productId);
     }
   };
 
@@ -404,7 +390,9 @@ export default function Collections() {
             </div>
           ) : filteredCollections.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-[#666] text-lg">No products found in this category</p>
+              <p className="text-[#666] text-lg">
+                No products found in this category
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-12">
@@ -417,7 +405,10 @@ export default function Collections() {
                   <div className="bg-white overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
                     <div className="relative overflow-hidden h-80 lg:h-96">
                       <img
-                        src={item.images?.[0]?.url || 'https://via.placeholder.com/400'}
+                        src={
+                          item.images?.[0]?.url ||
+                          "https://via.placeholder.com/400"
+                        }
                         alt={item.name}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
@@ -432,7 +423,7 @@ export default function Collections() {
                       <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
                         ₹{item.price?.toLocaleString()}
                       </div>
-                      
+
                       {item.stock === 0 && (
                         <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
                           Out of Stock
@@ -472,20 +463,6 @@ export default function Collections() {
                       <div className="flex gap-3 pt-4">
                         <button className="flex-1 bg-[#001238] text-[#f9f9f9] py-2 px-4 rounded-full text-sm font-semibold hover:bg-[#001f50] transition-all duration-300">
                           View Details
-                        </button>
-                        <button 
-                          onClick={(e) => handleWishlistToggle(e, item._id)}
-                          className={`px-4 py-2 border rounded-full transition-all duration-300 ${
-                            isInWishlist(item._id)
-                              ? 'bg-[#c5a46d] border-[#c5a46d] text-white'
-                              : 'border-[#c5a46d] text-[#c5a46d] hover:bg-[#c5a46d] hover:text-white'
-                          }`}
-                        >
-                          {isInWishlist(item._id) ? (
-                            <FaHeart className="w-5 h-5" />
-                          ) : (
-                            <FiHeart className="w-5 h-5" />
-                          )}
                         </button>
                       </div>
                     </div>
@@ -593,16 +570,6 @@ export default function Collections() {
                   <div className="flex gap-3">
                     <button className="bg-[#001238] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#001f50] transition-colors">
                       Inquire Now
-                    </button>
-                    <button 
-                      onClick={() => handleWishlistToggle({stopPropagation: () => {}}, selectedItem.id)}
-                      className={`border py-2 px-6 rounded-full transition-colors ${
-                        isInWishlist(selectedItem.id)
-                          ? 'bg-[#c5a46d] border-[#c5a46d] text-white'
-                          : 'border-[#c5a46d] text-[#c5a46d] hover:bg-[#c5a46d] hover:text-white'
-                      }`}
-                    >
-                      {isInWishlist(selectedItem.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                     </button>
                   </div>
                 </div>

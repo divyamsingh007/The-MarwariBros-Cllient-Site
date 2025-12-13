@@ -207,36 +207,29 @@
   gap: 1rem;
 }
 
-.admin-search-container {
-  position: relative;
+.admin-back-to-store {
   display: flex;
   align-items: center;
-}
-
-.admin-search-icon {
-  position: absolute;
-  left: 0.875rem;
-  color: #a0aec0;
-  font-size: 1.125rem;
-  pointer-events: none;
-}
-
-.admin-search-input {
-  padding: 0.625rem 1rem 0.625rem 2.75rem;
-  border: 1px solid #e2e8f0;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #001238 0%, #001a4d 100%);
+  color: #ffffff;
+  text-decoration: none;
   border-radius: 0.5rem;
-  background-color: #f7fafc;
   font-size: 0.9375rem;
-  color: #2d3748;
-  min-width: 280px;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 18, 56, 0.15);
 }
 
-.admin-search-input:focus {
-  outline: none;
-  border-color: #001238;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 18, 56, 0.1);
+.admin-back-to-store:hover {
+  background: linear-gradient(135deg, #001a4d 0%, #002461 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 18, 56, 0.25);
+}
+
+.admin-back-icon {
+  font-size: 1.125rem;
 }
 
 .admin-content {
@@ -637,8 +630,12 @@
 }
 
 @media (max-width: 480px) {
-  .admin-header-right {
+  .admin-back-to-store span {
     display: none;
+  }
+
+  .admin-back-to-store {
+    padding: 0.625rem;
   }
 
   .admin-table-container {

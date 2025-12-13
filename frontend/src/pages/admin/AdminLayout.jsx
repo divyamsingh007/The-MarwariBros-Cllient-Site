@@ -7,7 +7,7 @@ import {
   FiLogOut,
   FiMenu,
   FiX,
-  FiSearch,
+  FiExternalLink,
 } from "react-icons/fi";
 import { clearAuthToken } from "../../utils/api";
 import "./admin.css";
@@ -153,15 +153,10 @@ export default function AdminLayout() {
           </div>
 
           <div className="admin-header-right">
-            <div className="admin-search-container">
-              <FiSearch className="admin-search-icon" />
-              <input
-                type="text"
-                placeholder="Search admin..."
-                className="admin-search-input"
-                aria-label="Search"
-              />
-            </div>
+            <a href="/" className="admin-back-to-store" title="Back to Store">
+              <FiExternalLink className="admin-back-icon" />
+              <span>Back to Store</span>
+            </a>
           </div>
         </header>
 

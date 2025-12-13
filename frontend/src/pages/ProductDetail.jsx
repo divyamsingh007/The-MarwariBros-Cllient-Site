@@ -2,24 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useWishlist } from "../context/WishlistContext";
 import { productService, reviewService, cartService } from "../api/services";
 import {
-  FiHeart,
   FiShoppingCart,
   FiTruck,
   FiRefreshCw,
   FiShield,
   FiStar,
 } from "react-icons/fi";
-import { FaHeart, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import "./ProductDetail.css";
 
 export default function ProductDetail() {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { addToWishlist, removeFromWishlist, isInWishlist, wishlist } =
-    useWishlist();
 
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -85,19 +81,6 @@ export default function ProductDetail() {
       console.error("Failed to fetch reviews:", err);
       // Don't set error state for reviews, just log it
       setReviews([]);
-    }
-  };
-
-  const handleWishlistToggle = async () => {
-    if (isInWishlist(productId)) {
-      const item = wishlist.find(
-        (item) => item.product?._id === productId || item.product === productId
-      );
-      if (item?._id) {
-        await removeFromWishlist(item._id);
-      }
-    } else {
-      await addToWishlist(productId);
     }
   };
 
@@ -483,16 +466,6 @@ export default function ProductDetail() {
                 >
                   <FiShoppingCart />
                   {addingToCart ? "Adding..." : "Add to Cart"}
-                </button>
-                <button
-                  onClick={handleWishlistToggle}
-                  className="w-14 h-14 border-2 border-[#c5a46d] rounded-full hover:bg-[#c5a46d] hover:text-white transition-all flex items-center justify-center shadow-md"
-                >
-                  {isInWishlist(productId) ? (
-                    <FaHeart className="text-2xl text-red-500" />
-                  ) : (
-                    <FiHeart className="text-2xl" />
-                  )}
                 </button>
               </div>
 

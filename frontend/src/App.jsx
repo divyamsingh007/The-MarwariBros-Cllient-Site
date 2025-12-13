@@ -8,7 +8,6 @@ import About from "./pages/About";
 import Collections from "./pages/Collections";
 import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
-import Wishlist from "./pages/Wishlist";
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -27,7 +26,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
-        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
 
         {/* Admin Login Route - No protection needed */}
