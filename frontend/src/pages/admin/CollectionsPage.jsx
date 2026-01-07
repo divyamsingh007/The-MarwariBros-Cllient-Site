@@ -6,10 +6,10 @@ import { productService } from "../../api/services";
 
 // Map frontend category names to backend category names
 const categoryMap = {
-  'Men': 'men',
-  'Women': 'women',
-  'Jewellery': 'accessories',
-  'Juttis & Footwear': 'footwear'
+  Men: "men",
+  Women: "women",
+  Jewellery: "jewelry",
+  "Juttis & Footwear": "footwear",
 };
 
 export default function CollectionsPage({ category }) {
@@ -26,31 +26,34 @@ export default function CollectionsPage({ category }) {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Build query parameters
         const params = {};
-        
+
         // Add search keyword if exists
         if (searchQuery) {
           params.keyword = searchQuery;
         }
-        
+
         // Add stock filter
-        if (stockFilter === 'in') {
-          params['stock[gt]'] = '0';
-        } else if (stockFilter === 'out') {
-          params['stock[lte]'] = '0';
+        if (stockFilter === "in") {
+          params["stock[gt]"] = "0";
+        } else if (stockFilter === "out") {
+          params["stock[lte]"] = "0";
         }
-        
+
         // Add sorting (newest first)
-        params.sort = '-createdAt';
-        
+        params.sort = "-createdAt";
+
         // Map category to backend format
         const backendCategory = categoryMap[category] || category.toLowerCase();
-        
+
         // Fetch products by category using the service
-        const response = await productService.getByCategory(backendCategory, params);
-        
+        const response = await productService.getByCategory(
+          backendCategory,
+          params
+        );
+
         // Handle response structure
         if (response.data.success && response.data.data) {
           setProducts(response.data.data.products || response.data.data);
@@ -90,12 +93,13 @@ export default function CollectionsPage({ category }) {
 
   const handleSave = async (productData) => {
     try {
-      console.log('Sending product data:', productData); // Debug log
-      
+      console.log("Sending product data:", productData); // Debug log
+
       if (editing) {
         // Update existing product
         const response = await productService.update(editing._id, productData);
-        const updatedProduct = response.data.data?.product || response.data.data;
+        const updatedProduct =
+          response.data.data?.product || response.data.data;
         setProducts((prev) =>
           prev.map((p) => (p._id === editing._id ? updatedProduct : p))
         );
@@ -124,7 +128,11 @@ export default function CollectionsPage({ category }) {
             {category} Collection
           </h2>
           <p style={{ color: "#718096", fontSize: "0.875rem" }}>
-            {loading ? "Loading..." : `${filteredProducts.length} product${filteredProducts.length !== 1 ? "s" : ""} found`}
+            {loading
+              ? "Loading..."
+              : `${filteredProducts.length} product${
+                  filteredProducts.length !== 1 ? "s" : ""
+                } found`}
           </p>
         </div>
         <button onClick={handleAdd} className="admin-btn admin-btn-primary">
@@ -133,13 +141,15 @@ export default function CollectionsPage({ category }) {
       </div>
 
       {error && (
-        <div style={{ 
-          padding: "1rem", 
-          marginBottom: "1rem", 
-          backgroundColor: "#FEE2E2", 
-          color: "#991B1B", 
-          borderRadius: "0.5rem" 
-        }}>
+        <div
+          style={{
+            padding: "1rem",
+            marginBottom: "1rem",
+            backgroundColor: "#FEE2E2",
+            color: "#991B1B",
+            borderRadius: "0.5rem",
+          }}
+        >
           {error}
         </div>
       )}
@@ -170,11 +180,13 @@ export default function CollectionsPage({ category }) {
       </div>
 
       {loading ? (
-        <div style={{ 
-          padding: "3rem", 
-          textAlign: "center", 
-          color: "#718096" 
-        }}>
+        <div
+          style={{
+            padding: "3rem",
+            textAlign: "center",
+            color: "#718096",
+          }}
+        >
           Loading products...
         </div>
       ) : (

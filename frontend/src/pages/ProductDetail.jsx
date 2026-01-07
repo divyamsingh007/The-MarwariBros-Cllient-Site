@@ -3,13 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { productService, reviewService, cartService } from "../api/services";
-import {
-  FiShoppingCart,
-  FiTruck,
-  FiRefreshCw,
-  FiShield,
-  FiStar,
-} from "react-icons/fi";
+import { FiStar } from "react-icons/fi";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import "./ProductDetail.css";
 
@@ -22,11 +16,6 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState("description");
-  const [addingToCart, setAddingToCart] = useState(false);
 
   console.log("ProductDetail rendering with productId:", productId);
 
@@ -352,271 +341,160 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              {/* Price */}
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-4">
-                  <span className="text-4xl font-bold text-gray-900">
-                    {formatPrice(product.price)}
-                  </span>
-                  {product.compareAtPrice && (
-                    <span className="text-2xl text-gray-400 line-through">
-                      {formatPrice(product.compareAtPrice)}
-                    </span>
-                  )}
+              {/* Product Description */}
+              {product.shortDescription && (
+                <div className="py-4 border-y border-[#e2e8f0]">
+                  <p className="paragraph !text-base !leading-relaxed text-gray-700">
+                    {product.shortDescription}
+                  </p>
                 </div>
-                {product.taxIncluded && (
-                  <p className="text-sm text-gray-600">
-                    Inclusive of all taxes
-                  </p>
-                )}
-              </div>
+              )}
 
-              {/* Stock Status */}
-              <div>
-                {product.stock > 0 ? (
-                  <p className="text-green-600 font-semibold">
-                    In Stock ({product.stock} available)
-                  </p>
-                ) : (
-                  <p className="text-red-600 font-semibold">Out of Stock</p>
-                )}
-              </div>
-
-              {/* Size Selection */}
+              {/* Size Selection (Display Only) */}
               {sizes.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-3">
-                    Select Size
+                    Available Sizes
                   </h3>
                   <div className="flex flex-wrap gap-3">
                     {sizes.map((size) => (
-                      <button
+                      <div
                         key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-6 py-2 border-2 rounded-lg font-semibold transition-all ${
-                          selectedSize === size
-                            ? "border-[#001238] bg-[#001238] text-white"
-                            : "border-gray-300 hover:border-[#c5a46d]"
-                        }`}
+                        className="px-6 py-2 border-2 border-gray-300 rounded-lg font-semibold text-gray-700"
                       >
                         {size}
-                      </button>
+                      </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Color Selection */}
+              {/* Color Selection (Display Only) */}
               {colors.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-3">
-                    Select Color
+                    Available Colors
                   </h3>
                   <div className="flex flex-wrap gap-3">
                     {colors.map((color) => (
-                      <button
+                      <div
                         key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className={`px-6 py-2 border-2 rounded-lg font-semibold transition-all ${
-                          selectedColor === color
-                            ? "border-[#001238] bg-[#001238] text-white"
-                            : "border-gray-300 hover:border-[#c5a46d]"
-                        }`}
+                        className="px-6 py-2 border-2 border-gray-300 rounded-lg font-semibold text-gray-700"
                       >
                         {color}
-                      </button>
+                      </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Quantity */}
-              <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-3">
-                  Quantity
-                </h3>
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 border-2 border-[#001238] text-[#001238] rounded-lg hover:bg-[#001238] hover:text-white transition-all font-bold"
-                  >
-                    -
-                  </button>
-                  <span className="text-xl font-semibold w-12 text-center">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() =>
-                      setQuantity(Math.min(product.stock, quantity + 1))
-                    }
-                    className="w-10 h-10 border-2 border-[#001238] text-[#001238] rounded-lg hover:bg-[#001238] hover:text-white transition-all font-bold disabled:opacity-50"
-                    disabled={quantity >= product.stock}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-4">
-                <button
-                  onClick={handleAddToCart}
-                  disabled={product.stock === 0 || addingToCart}
-                  className="flex-1 bg-[#001238] text-white py-4 rounded-full font-semibold hover:bg-[#001f50] transition-all disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                >
-                  <FiShoppingCart />
-                  {addingToCart ? "Adding..." : "Add to Cart"}
-                </button>
-              </div>
-
-              {/* Features */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#e2e8f0]">
-                <div className="text-center">
-                  <FiTruck className="text-3xl mx-auto mb-2 text-[#c5a46d]" />
-                  <p className="text-sm font-semibold text-[#001238]">
-                    Free Shipping
-                  </p>
-                  <p className="text-xs text-gray-600">On orders above ₹999</p>
-                </div>
-                <div className="text-center">
-                  <FiRefreshCw className="text-3xl mx-auto mb-2 text-[#c5a46d]" />
-                  <p className="text-sm font-semibold text-[#001238]">
-                    Easy Returns
-                  </p>
-                  <p className="text-xs text-gray-600">7 days return policy</p>
-                </div>
-                <div className="text-center">
-                  <FiShield className="text-3xl mx-auto mb-2 text-[#c5a46d]" />
-                  <p className="text-sm font-semibold text-[#001238]">
-                    Secure Payment
-                  </p>
-                  <p className="text-xs text-gray-600">100% secure</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Tabs Section */}
-          <div className="mt-12 md:mt-16 bg-white rounded-lg shadow-lg border border-[#e2e8f0] overflow-hidden">
-            <div className="border-b border-[#e2e8f0] bg-[#f9f9f9]">
-              <div className="flex gap-4 md:gap-8 px-6">
-                <button
-                  onClick={() => setActiveTab("description")}
-                  className={`pb-4 pt-6 font-semibold transition-all ${
-                    activeTab === "description"
-                      ? "border-b-2 border-[#001238] text-[#001238]"
-                      : "text-gray-600 hover:text-[#001238]"
-                  }`}
-                >
-                  Description
-                </button>
-                <button
-                  onClick={() => setActiveTab("details")}
-                  className={`pb-4 pt-6 font-semibold transition-all ${
-                    activeTab === "details"
-                      ? "border-b-2 border-[#001238] text-[#001238]"
-                      : "text-gray-600 hover:text-[#001238]"
-                  }`}
-                >
-                  Details
-                </button>
-                <button
-                  onClick={() => setActiveTab("reviews")}
-                  className={`pb-4 pt-6 font-semibold transition-all ${
-                    activeTab === "reviews"
-                      ? "border-b-2 border-[#001238] text-[#001238]"
-                      : "text-gray-600 hover:text-[#001238]"
-                  }`}
-                >
-                  Reviews ({reviews.length})
-                </button>
-              </div>
-            </div>
-
-            <div className="p-6 md:p-8">
-              {activeTab === "description" && (
-                <div className="prose max-w-none">
-                  <p className="text-gray-700 whitespace-pre-line">
+              {/* Full Description */}
+              {product.description && (
+                <div className="pt-6 border-t border-[#e2e8f0]">
+                  <h3 className="text-lg font-bold text-[#001238] mb-3 flex items-center">
+                    <span className="w-1 h-6 bg-[#c5a46d] mr-3"></span>
+                    Description
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                     {product.description}
                   </p>
                 </div>
               )}
 
-              {activeTab === "details" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="font-semibold text-lg mb-4">
-                      Product Information
-                    </h3>
-                    <dl className="space-y-2">
-                      {product.brand && (
-                        <>
-                          <dt className="text-gray-600 inline">Brand:</dt>
-                          <dd className="inline ml-2 font-semibold">
-                            {product.brand}
-                          </dd>
-                        </>
-                      )}
-                      {product.sku && (
-                        <div>
-                          <dt className="text-gray-600 inline">SKU:</dt>
-                          <dd className="inline ml-2 font-semibold">
-                            {product.sku}
-                          </dd>
-                        </div>
-                      )}
-                      {product.category && (
-                        <div>
-                          <dt className="text-gray-600 inline">Category:</dt>
-                          <dd className="inline ml-2 font-semibold capitalize">
-                            {product.category}
-                          </dd>
-                        </div>
-                      )}
-                      {product.tags && product.tags.length > 0 && (
-                        <div>
-                          <dt className="text-gray-600">Tags:</dt>
-                          <dd className="flex flex-wrap gap-2 mt-1">
-                            {product.tags.map((tag, index) => (
-                              <span
-                                key={index}
-                                className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
-                  </div>
-
-                  {product.specifications &&
-                    Object.keys(product.specifications).length > 0 && (
-                      <div>
-                        <h3 className="font-semibold text-lg mb-4">
-                          Specifications
-                        </h3>
-                        <dl className="space-y-2">
-                          {Object.entries(product.specifications).map(
-                            ([key, value]) => (
-                              <div key={key}>
-                                <dt className="text-gray-600 inline capitalize">
-                                  {key.replace(/_/g, " ")}:
-                                </dt>
-                                <dd className="inline ml-2 font-semibold">
-                                  {value}
-                                </dd>
-                              </div>
-                            )
-                          )}
-                        </dl>
-                      </div>
-                    )}
+              {/* Product Details */}
+              <div className="pt-6 border-t border-[#e2e8f0]">
+                <h3 className="text-lg font-bold text-[#001238] mb-4 flex items-center">
+                  <span className="w-1 h-6 bg-[#c5a46d] mr-3"></span>
+                  Product Information
+                </h3>
+                <div className="space-y-3">
+                  {product.brand && (
+                    <div className="flex">
+                      <dt className="text-gray-600 min-w-[120px] font-medium">
+                        Brand:
+                      </dt>
+                      <dd className="text-[#001238] font-semibold">
+                        {product.brand}
+                      </dd>
+                    </div>
+                  )}
+                  {product.sku && (
+                    <div className="flex">
+                      <dt className="text-gray-600 min-w-[120px] font-medium">
+                        SKU:
+                      </dt>
+                      <dd className="text-[#001238] font-semibold">
+                        {product.sku}
+                      </dd>
+                    </div>
+                  )}
+                  {product.category && (
+                    <div className="flex">
+                      <dt className="text-gray-600 min-w-[120px] font-medium">
+                        Category:
+                      </dt>
+                      <dd className="text-[#001238] font-semibold capitalize">
+                        {product.category}
+                      </dd>
+                    </div>
+                  )}
+                  {product.tags && product.tags.length > 0 && (
+                    <div className="flex">
+                      <dt className="text-gray-600 min-w-[120px] font-medium">
+                        Tags:
+                      </dt>
+                      <dd className="flex flex-wrap gap-2">
+                        {product.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-[#c5a46d]/10 text-[#c5a46d] rounded-full text-sm font-medium border border-[#c5a46d]/20"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
                 </div>
-              )}
 
-              {activeTab === "reviews" && (
+                {/* Specifications */}
+                {product.specifications &&
+                  Object.keys(product.specifications).length > 0 && (
+                    <div className="mt-6 pt-6 border-t border-[#e2e8f0]">
+                      <h4 className="text-base font-bold text-[#001238] mb-3">
+                        Specifications
+                      </h4>
+                      <div className="space-y-3">
+                        {Object.entries(product.specifications).map(
+                          ([key, value]) => (
+                            <div key={key} className="flex">
+                              <dt className="text-gray-600 min-w-[120px] font-medium capitalize">
+                                {key.replace(/_/g, " ")}:
+                              </dt>
+                              <dd className="text-[#001238] font-semibold">
+                                {value}
+                              </dd>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+              </div>
+            </div>
+          </div>
+
+          {/* Reviews Section */}
+          <div className="mt-12 md:mt-16 bg-white rounded-lg shadow-lg border border-[#e2e8f0] overflow-hidden">
+            <div className="border-b border-[#e2e8f0] bg-[#f9f9f9] px-6 py-6">
+              <h3 className="text-xl font-bold text-[#001238] flex items-center">
+                <span className="w-1 h-6 bg-[#c5a46d] mr-3"></span>
+                Customer Reviews ({reviews.length})
+              </h3>
+            </div>
+
+            <div className="p-6 md:p-8">
+              {
                 <div className="space-y-8">
                   {reviews.length > 0 ? (
                     <>
@@ -725,7 +603,7 @@ export default function ProductDetail() {
                     </div>
                   )}
                 </div>
-              )}
+              }
             </div>
           </div>
         </div>

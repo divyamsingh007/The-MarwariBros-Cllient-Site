@@ -59,7 +59,7 @@ export default function AdminLayout() {
         className={`admin-sidebar ${sidebarOpen ? "admin-sidebar--open" : ""}`}
       >
         <div className="admin-brand">
-          <h2 className="admin-brand-title">The MarwariBros Admin</h2>
+          <h2 className="admin-brand-title">The MarwariBrothers Admin</h2>
           <button
             className="admin-sidebar-close"
             onClick={closeSidebar}

@@ -70,7 +70,6 @@ export default function Collections() {
     { id: "women", name: "Women's Wear" },
     { id: "jewelry", name: "Jewelry" },
     { id: "footwear", name: "Juttis" },
-    { id: "accessories", name: "Accessories" },
   ];
 
   const collections = [
@@ -246,7 +245,7 @@ export default function Collections() {
     },
     {
       id: 11,
-      category: "accessories",
+      category: "jewelry",
       name: "Royal Turbans & Safas",
       subtitle: "Crowning Glory",
       price: "₹8,000 - ₹25,000",
@@ -263,7 +262,7 @@ export default function Collections() {
     },
     {
       id: 12,
-      category: "accessories",
+      category: "jewelry",
       name: "Heritage Bags & Clutches",
       subtitle: "Elegant Companions",
       price: "₹4,500 - ₹15,000",
@@ -420,9 +419,9 @@ export default function Collections() {
                         </p>
                       </div>
 
-                      <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
+                      {/* <div className="absolute top-4 right-4 bg-[#c5a46d] text-[#001238] px-3 py-1 rounded-full text-sm font-bold">
                         ₹{item.price?.toLocaleString()}
-                      </div>
+                      </div> */}
 
                       {item.stock === 0 && (
                         <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
@@ -439,9 +438,9 @@ export default function Collections() {
                         <h2 className="heading-secondary !text-xl !text-[#001238] mb-3">
                           {item.name}
                         </h2>
-                        <p className="heading-quaternary !text-[#666] !text-lg font-bold">
+                        {/* <p className="heading-quaternary !text-[#666] !text-lg font-bold">
                           ₹{item.price?.toLocaleString()}
-                        </p>
+                        </p> */}
                       </div>
 
                       <div className="flex flex-wrap gap-2">
@@ -496,9 +495,9 @@ export default function Collections() {
             <button className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl">
               Request Custom Design
             </button>
-            <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
+            {/* <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
               Schedule Consultation
-            </button>
+            </button> */}
           </div>
         </div>
       </section>

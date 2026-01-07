@@ -11,7 +11,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between py-4 md:py-6 lg:py-8">
             <div className="nav-logo-name flex-1 md:flex-none text-center md:text-left navbar-logo-animate">
               <h1 className="heading-primary !text-2xl sm:!text-3xl md:!text-4xl lg:!text-5xl">
-                The MarwariBros
+                The MarwariBrothers
               </h1>
             </div>
 

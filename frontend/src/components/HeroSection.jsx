@@ -35,7 +35,7 @@ export default function HeroSection() {
               <div className="lg:col-span-7 xl:col-span-8 order-1 lg:order-2 text-center lg:text-left space-y-6 sm:space-y-8 lg:space-y-10">
                 <div className="space-y-4 lg:space-y-6">
                   <h1 className="heading-primary !text-[#F9F9F9] !text-4xl sm:!text-5xl md:!text-6xl lg:!text-7xl xl:!text-8xl !leading-tight hero-title-animate">
-                    The MarwariBros
+                    The MarwariBrothers
                   </h1>
 
                   <h2 className="heading-tertiary !text-lg sm:!text-xl md:!text-2xl lg:!text-3xl xl:!text-4xl !leading-relaxed hero-subtitle-animate">
@@ -48,38 +48,16 @@ export default function HeroSection() {
                     At The Marwari Brothers, what you see is just the beginning.
                   </p>
                   <p className="paragraph !text-[#F9F9F9] !text-sm sm:!text-base md:!text-lg lg:!text-lg xl:!text-xl !leading-relaxed max-w-none lg:max-w-3xl opacity-80">
-                    We craft bespoke outfits and accessories, from talwars and
-                    katars to handcrafted safas and jewellery, each piece
-                    tailored to your story and event.
+                    At The Marwari Brothers, we understand that your wedding is
+                    not merely an event; it is the culmination of your legacy, a
+                    moment where heritage meets the future. For those who seek
+                    to adorn this moment with more than opulence—with authentic
+                    narrative and uncompromised artistry—your journey ends here.
                   </p>
                 </div>
 
                 <div className="pt-4 sm:pt-6 lg:pt-8">
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center lg:items-start lg:justify-start hero-cta-animate">
-                    <div className="relative w-full sm:w-auto sm:flex-1 lg:flex-initial">
-                      <input
-                        type="text"
-                        placeholder="Search collections..."
-                        className="w-full sm:w-80 lg:w-72 xl:w-80 py-3 sm:py-4 px-5 pr-14 rounded-full bg-[#F9F9F9] text-[#001238] placeholder-[#0D0D0D] outline-none focus:ring-4 focus:ring-[#c5a46d]/30 transition-all duration-300 text-sm sm:text-base lg:text-lg shadow-lg backdrop-blur-sm"
-                      />
-                      <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#001238] text-white rounded-full p-2.5 sm:p-3 hover:bg-[#001f50] hover:scale-110 transition-all duration-300 cursor-pointer shadow-lg">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 sm:h-5 sm:w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-
                     <a href="#second-section">
                       <button className="bg-[#c5a46d] text-[#001238] py-3 sm:py-4 px-8 sm:px-10 lg:px-12 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base sm:text-lg lg:text-xl hover:scale-105 hover:bg-[#d4b578] transform whitespace-nowrap cursor-pointer">
                         Explore

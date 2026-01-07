@@ -93,32 +93,77 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div>
-                <h2 className="heading-primary mb-4">Our Story</h2>
+                <h2 className="heading-primary mb-4">About Us</h2>
                 <h3 className="heading-tertiary mb-6">
-                  Where Tradition Meets Innovation
+                  Custodians of a Royal Legacy
                 </h3>
               </div>
               <div className="space-y-6">
                 <p className="paragraph !text-lg">
-                  Founded in 1985 by Master Craftsman Rajesh Marwari, The
-                  Marwari Brothers began as a small workshop in the vibrant
-                  lanes of Jodhpur. What started with a simple dream to preserve
-                  and celebrate traditional Marwari craftsmanship has evolved
-                  into a renowned name in ethnic fashion.
+                  At The Marwari Brothers, we understand that your wedding is
+                  not merely an event; it is the culmination of your legacy—a
+                  moment where heritage meets the future. For those who seek to
+                  adorn this moment with more than opulence—with authentic
+                  narrative and uncompromised artistry— your journey ends here.
                 </p>
+
                 <p className="paragraph !text-lg">
-                  Our workshop was filled with the rhythmic sounds of
-                  traditional looms, the careful stitching of intricate
-                  embroidery, and the passionate discussions about preserving
-                  age-old techniques. Each piece we created carried not just
-                  fabric and thread, but stories of our heritage.
+                  We are not a brand; we are a curated collective. A
+                  meticulously assembled atelier of Rajasthan’s most revered,
+                  multi-generational master karigars—artisans whose hands have
+                  shaped elegance for royal families and whose legacies are
+                  woven into the very fabric of Jodhpur’s history. These are not
+                  anonymous tailors; they are masters like{" "}
+                  <em>[Name, National Award Winner for Jewellery]</em> and
+                  <em>[Name, family embroiderer to the Jodhpur royalty]</em>,
+                  whom we have partnered with to bring their genius to your
+                  story.
                 </p>
+
+                <h3 className="paragraph !text-lg !font-bold">The TMB Promise: Seamless, End-to-End Excellence</h3>
+
                 <p className="paragraph !text-lg">
-                  Today, while we've embraced modern technology and expanded our
-                  reach globally, our core remains unchanged – every garment,
-                  every accessory, every piece of jewelry is still crafted with
-                  the same love and attention to detail that defined our early
-                  days.
+                  We solve the fundamental inconvenience faced by the
+                  discerning: the arduous task of sourcing the finest elements
+                  from scattered corners of the country. Why journey to Jodhpur
+                  for footwear, Surat for fabrics, and Jaipur for jewellery,
+                  acting as your own quality curator?
+                </p>
+
+                <p className="paragraph !text-lg">
+                  The Marwari Brothers offers an unparalleled, end-to-end
+                  experience. From the initial sketch of your bespoke sherwani
+                  or bridal lehenga to the final placement of a handcrafted
+                  katar or the fold of a regal safa, every element is conceived,
+                  crafted, and delivered under one trusted standard of
+                  excellence. We are your single point of contact for an empire
+                  of craftsmanship.
+                </p>
+
+                <h3 className="paragraph !text-lg !font-bold">The ‘Amul of Tailoring’: A Standard of Trust</h3>
+
+                <p className="paragraph !text-lg">
+                  In a world of mass-produced luxury, we are building what
+                  ‘Amul’ is to dairy—a household name synonymous with
+                  authenticity, quality, and trust. This is our guiding
+                  principle. It means that when you wear a TMB creation, you are
+                  not wearing a label; you are wearing a promise. A promise of
+                  heritage-driven design, of fabrics that speak of richness, and
+                  of stitches that hold a legacy.
+                </p>
+
+                <h3 className="paragraph !text-lg !font-bold">Your Wedding, Our Heritage</h3>
+
+                <p className="paragraph !text-lg">
+                  We invite you to not just wear an outfit, but to inherit a
+                  narrative. Let us be the custodians of your appearance on the
+                  most important day of your life. Entrust us with the craft, so
+                  you can focus on the celebration.
+                </p>
+
+                <p className="paragraph !text-lg">
+                  To begin the conversation about crafting your legacy, we
+                  invite you to schedule a private consultation.
                 </p>
               </div>
             </div>
@@ -132,11 +177,11 @@ export default function About() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/30 via-transparent to-transparent"></div>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-[#c5a46d] rounded-full bg-[#f9f9f9] flex items-center justify-center shadow-xl">
+              {/* <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-[#c5a46d] rounded-full bg-[#f9f9f9] flex items-center justify-center shadow-xl">
                 <span className="heading-secondary !text-[#001238] !text-2xl">
                   40+
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -207,7 +252,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32">
+      {/* Our journey section */}
+      {/* <section className="py-20 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="heading-primary mb-4">Our Journey</h2>
@@ -257,7 +303,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-20 bg-[#f9f9f9]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -318,9 +364,9 @@ export default function About() {
             <button className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl">
               Schedule Consultation
             </button>
-            <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
+            {/* <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
               View Portfolio
-            </button>
+            </button> */}
           </div>
         </div>
       </section>

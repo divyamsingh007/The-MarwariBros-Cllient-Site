@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { FiX, FiImage, FiDollarSign, FiPackage, FiTag, FiFileText, FiUpload } from "react-icons/fi";
+import {
+  FiX,
+  FiImage,
+  FiDollarSign,
+  FiPackage,
+  FiTag,
+  FiFileText,
+  FiUpload,
+} from "react-icons/fi";
 
 export default function ProductModal({ product, category, onClose, onSave }) {
   // Map backend product data to frontend format
@@ -7,12 +15,12 @@ export default function ProductModal({ product, category, onClose, onSave }) {
     if (product) {
       // Reverse category mapping
       const categoryReverseMap = {
-        'men': 'Men',
-        'women': 'Women',
-        'accessories': 'Jewellery',
-        'footwear': 'Juttis & Footwear',
+        men: "Men",
+        women: "Women",
+        jewelry: "Jewellery",
+        footwear: "Juttis & Footwear",
       };
-      
+
       return {
         id: product._id || product.id || null,
         name: product.name || "",
@@ -21,10 +29,13 @@ export default function ProductModal({ product, category, onClose, onSave }) {
         stock: product.stock || 0,
         category: categoryReverseMap[product.category] || category,
         tags: product.tags || [category],
-        image: product.images?.[0]?.url || product.image || "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop",
+        image:
+          product.images?.[0]?.url ||
+          product.image ||
+          "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop",
       };
     }
-    
+
     return {
       id: null,
       name: "",
@@ -33,22 +44,23 @@ export default function ProductModal({ product, category, onClose, onSave }) {
       stock: 0,
       category: category,
       tags: [category],
-      image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop",
     };
   };
-  
+
   const [formData, setFormData] = useState(getInitialFormData());
   const [errors, setErrors] = useState({});
   const [imagePreview, setImagePreview] = useState(formData.image);
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    
+
     // Update image preview
-    if (field === 'image') {
+    if (field === "image") {
       setImagePreview(value);
     }
-    
+
     // Clear error for this field
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: null }));
@@ -85,32 +97,37 @@ export default function ProductModal({ product, category, onClose, onSave }) {
     if (validate()) {
       // Map frontend categories to backend enum values
       const categoryMap = {
-        'Men': 'men',
-        'Women': 'women',
-        'Jewellery': 'accessories',
-        'Juttis & Footwear': 'footwear',
+        Men: "men",
+        Women: "women",
+        Jewellery: "jewelry",
+        "Juttis & Footwear": "footwear",
       };
-      
+
       // Transform data to match backend schema
       const productData = {
         name: formData.name,
-        description: formData.description || 'No description provided',
+        description: formData.description || "No description provided",
         price: formData.price,
         stock: formData.stock,
-        category: categoryMap[formData.category] || 'other',
+        category: categoryMap[formData.category] || "other",
         tags: formData.tags || [],
-        images: formData.image ? [{ url: formData.image, isPrimary: true }] : [],
-        status: 'active',
+        images: formData.image
+          ? [{ url: formData.image, isPrimary: true }]
+          : [],
+        status: "active",
         isPublished: true,
       };
-      
+
       onSave(productData);
     }
   };
 
   return (
     <div className="admin-modal-overlay" onClick={onClose}>
-      <div className="admin-modal admin-modal-enhanced" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="admin-modal admin-modal-enhanced"
+        onClick={(e) => e.stopPropagation()}
+      >
         <form onSubmit={handleSubmit}>
           {/* Header */}
           <div className="admin-modal-header">
@@ -118,8 +135,16 @@ export default function ProductModal({ product, category, onClose, onSave }) {
               <h3 className="admin-modal-title">
                 {product ? "✨ Edit Product" : "🎉 Add New Product"}
               </h3>
-              <p style={{ color: "#718096", fontSize: "0.875rem", marginTop: "0.25rem" }}>
-                {product ? "Update your product details" : "Fill in the details to add a new product"}
+              <p
+                style={{
+                  color: "#718096",
+                  fontSize: "0.875rem",
+                  marginTop: "0.25rem",
+                }}
+              >
+                {product
+                  ? "Update your product details"
+                  : "Fill in the details to add a new product"}
               </p>
             </div>
             <button
@@ -136,10 +161,14 @@ export default function ProductModal({ product, category, onClose, onSave }) {
             <div className="product-image-section">
               <div className="product-image-preview">
                 <img
-                  src={imagePreview || "https://via.placeholder.com/300x300?text=No+Image"}
+                  src={
+                    imagePreview ||
+                    "https://via.placeholder.com/300x300?text=No+Image"
+                  }
                   alt="Product Preview"
                   onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/300x300?text=No+Image";
+                    e.target.src =
+                      "https://via.placeholder.com/300x300?text=No+Image";
                   }}
                 />
                 <div className="image-overlay">
@@ -149,7 +178,9 @@ export default function ProductModal({ product, category, onClose, onSave }) {
               </div>
               <div className="admin-form-group" style={{ marginBottom: 0 }}>
                 <label className="admin-label" htmlFor="image">
-                  <FiImage style={{ display: "inline", marginRight: "0.5rem" }} />
+                  <FiImage
+                    style={{ display: "inline", marginRight: "0.5rem" }}
+                  />
                   Image URL
                 </label>
                 <input
@@ -172,22 +203,24 @@ export default function ProductModal({ product, category, onClose, onSave }) {
               <input
                 id="name"
                 type="text"
-                className={`admin-input ${errors.name ? 'admin-input-error' : ''}`}
+                className={`admin-input ${
+                  errors.name ? "admin-input-error" : ""
+                }`}
                 value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 placeholder="e.g., Traditional Embroidered Kurta"
               />
               {errors.name && (
-                <span className="admin-error-text">
-                  {errors.name}
-                </span>
+                <span className="admin-error-text">{errors.name}</span>
               )}
             </div>
 
             {/* Description */}
             <div className="admin-form-group">
               <label className="admin-label" htmlFor="description">
-                <FiFileText style={{ display: "inline", marginRight: "0.5rem" }} />
+                <FiFileText
+                  style={{ display: "inline", marginRight: "0.5rem" }}
+                />
                 Description
               </label>
               <textarea
@@ -198,12 +231,14 @@ export default function ProductModal({ product, category, onClose, onSave }) {
                 placeholder="Describe your product in detail..."
                 rows="4"
               />
-              <div style={{ 
-                fontSize: "0.75rem", 
-                color: "#718096", 
-                marginTop: "0.25rem",
-                textAlign: "right"
-              }}>
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#718096",
+                  marginTop: "0.25rem",
+                  textAlign: "right",
+                }}
+              >
                 {formData.description.length} characters
               </div>
             </div>
@@ -212,7 +247,9 @@ export default function ProductModal({ product, category, onClose, onSave }) {
             <div className="admin-grid-2">
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="price">
-                  <FiDollarSign style={{ display: "inline", marginRight: "0.5rem" }} />
+                  <FiDollarSign
+                    style={{ display: "inline", marginRight: "0.5rem" }}
+                  />
                   Price (₹) *
                 </label>
                 <div className="admin-input-with-icon">
@@ -222,7 +259,9 @@ export default function ProductModal({ product, category, onClose, onSave }) {
                     type="number"
                     step="0.01"
                     min="0"
-                    className={`admin-input admin-input-with-prefix ${errors.price ? 'admin-input-error' : ''}`}
+                    className={`admin-input admin-input-with-prefix ${
+                      errors.price ? "admin-input-error" : ""
+                    }`}
                     value={formData.price}
                     onChange={(e) =>
                       handleChange("price", parseFloat(e.target.value) || 0)
@@ -231,22 +270,24 @@ export default function ProductModal({ product, category, onClose, onSave }) {
                   />
                 </div>
                 {errors.price && (
-                  <span className="admin-error-text">
-                    {errors.price}
-                  </span>
+                  <span className="admin-error-text">{errors.price}</span>
                 )}
               </div>
 
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="stock">
-                  <FiPackage style={{ display: "inline", marginRight: "0.5rem" }} />
+                  <FiPackage
+                    style={{ display: "inline", marginRight: "0.5rem" }}
+                  />
                   Stock Quantity *
                 </label>
                 <input
                   id="stock"
                   type="number"
                   min="0"
-                  className={`admin-input ${errors.stock ? 'admin-input-error' : ''}`}
+                  className={`admin-input ${
+                    errors.stock ? "admin-input-error" : ""
+                  }`}
                   value={formData.stock}
                   onChange={(e) =>
                     handleChange("stock", parseInt(e.target.value) || 0)
@@ -254,12 +295,17 @@ export default function ProductModal({ product, category, onClose, onSave }) {
                   placeholder="0"
                 />
                 {errors.stock && (
-                  <span className="admin-error-text">
-                    {errors.stock}
-                  </span>
+                  <span className="admin-error-text">{errors.stock}</span>
                 )}
                 {formData.stock === 0 && !errors.stock && (
-                  <span style={{ color: "#f59e0b", fontSize: "0.75rem", marginTop: "0.25rem", display: "block" }}>
+                  <span
+                    style={{
+                      color: "#f59e0b",
+                      fontSize: "0.75rem",
+                      marginTop: "0.25rem",
+                      display: "block",
+                    }}
+                  >
                     ⚠️ Product will be marked as out of stock
                   </span>
                 )}
@@ -297,13 +343,21 @@ export default function ProductModal({ product, category, onClose, onSave }) {
                 onChange={handleTagsChange}
                 placeholder="e.g., Traditional, Premium, Designer, Handcrafted"
               />
-              <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <div
+                style={{
+                  marginTop: "0.5rem",
+                  display: "flex",
+                  gap: "0.5rem",
+                  flexWrap: "wrap",
+                }}
+              >
                 {formData.tags?.map((tag, index) => (
                   <span
                     key={index}
                     style={{
                       padding: "0.25rem 0.75rem",
-                      background: "linear-gradient(135deg, #001238 0%, #001a4d 100%)",
+                      background:
+                        "linear-gradient(135deg, #001238 0%, #001a4d 100%)",
                       color: "white",
                       borderRadius: "9999px",
                       fontSize: "0.75rem",
@@ -326,7 +380,10 @@ export default function ProductModal({ product, category, onClose, onSave }) {
             >
               Cancel
             </button>
-            <button type="submit" className="admin-btn admin-btn-primary admin-btn-primary-gradient">
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary admin-btn-primary-gradient"
+            >
               {product ? "💾 Update Product" : "✨ Add Product"}
             </button>
           </div>

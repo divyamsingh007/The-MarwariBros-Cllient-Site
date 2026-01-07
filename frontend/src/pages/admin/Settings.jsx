@@ -4,8 +4,8 @@ import { adminService, userService } from "../../api/services";
 
 export default function Settings() {
   const [settings, setSettings] = useState({
-    siteName: "MarwariBros",
-    adminEmail: "admin@marwaribros.com",
+    siteName: "MarwariBrothers",
+    adminEmail: "admin@marwaribrothers.com",
     notifications: true,
     emailAlerts: true,
     orderNotifications: true,
@@ -30,7 +30,7 @@ export default function Settings() {
     const userData = JSON.parse(localStorage.getItem("user") || "{}");
     setUser(userData);
     if (userData.email) {
-      setSettings(prev => ({ ...prev, adminEmail: userData.email }));
+      setSettings((prev) => ({ ...prev, adminEmail: userData.email }));
     }
   }, []);
 
@@ -53,18 +53,18 @@ export default function Settings() {
     try {
       // Save general settings
       await adminService.updateSettings(settings);
-      
+
       // If email changed, update user profile
       if (user && settings.adminEmail !== user.email) {
         const userId = user._id;
         await userService.update(userId, { email: settings.adminEmail });
-        
+
         // Update localStorage with new email
         const updatedUser = { ...user, email: settings.adminEmail };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
+        localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
       }
-      
+
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
@@ -101,7 +101,7 @@ export default function Settings() {
     try {
       // Get user ID from localStorage
       const userId = user?._id;
-      
+
       if (!userId) {
         throw new Error("User ID not found. Please login again.");
       }
@@ -110,18 +110,20 @@ export default function Settings() {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
       });
-      
+
       setPasswordSuccess(true);
       setPasswordData({
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
-      
+
       setTimeout(() => setPasswordSuccess(false), 3000);
     } catch (err) {
       console.error("Failed to change password:", err);
-      setPasswordError(err.response?.data?.message || "Failed to change password");
+      setPasswordError(
+        err.response?.data?.message || "Failed to change password"
+      );
     } finally {
       setLoading(false);
     }
@@ -168,7 +170,9 @@ export default function Settings() {
 
               <div className="admin-form-group">
                 <label className="admin-label" htmlFor="language">
-                  <FiGlobe style={{ display: "inline", marginRight: "0.5rem" }} />
+                  <FiGlobe
+                    style={{ display: "inline", marginRight: "0.5rem" }}
+                  />
                   Language
                 </label>
                 <select
@@ -183,7 +187,7 @@ export default function Settings() {
                 </select>
               </div>
             </div>
-            
+
             <div className="admin-card">
               <h3 className="admin-card-title">
                 <FiBell style={{ display: "inline", marginRight: "0.5rem" }} />
@@ -195,7 +199,9 @@ export default function Settings() {
                   <input
                     type="checkbox"
                     checked={settings.notifications}
-                    onChange={(e) => handleChange("notifications", e.target.checked)}
+                    onChange={(e) =>
+                      handleChange("notifications", e.target.checked)
+                    }
                     style={{ marginRight: "0.5rem" }}
                   />
                   Enable Notifications
@@ -207,7 +213,9 @@ export default function Settings() {
                   <input
                     type="checkbox"
                     checked={settings.emailAlerts}
-                    onChange={(e) => handleChange("emailAlerts", e.target.checked)}
+                    onChange={(e) =>
+                      handleChange("emailAlerts", e.target.checked)
+                    }
                     style={{ marginRight: "0.5rem" }}
                   />
                   Email Alerts
@@ -219,7 +227,9 @@ export default function Settings() {
                   <input
                     type="checkbox"
                     checked={settings.orderNotifications}
-                    onChange={(e) => handleChange("orderNotifications", e.target.checked)}
+                    onChange={(e) =>
+                      handleChange("orderNotifications", e.target.checked)
+                    }
                     style={{ marginRight: "0.5rem" }}
                   />
                   Order Notifications
@@ -228,19 +238,21 @@ export default function Settings() {
             </div>
 
             {error && (
-              <div style={{ 
-                padding: "1rem", 
-                backgroundColor: "#fed7d7", 
-                color: "#c53030", 
-                borderRadius: "0.5rem" 
-              }}>
+              <div
+                style={{
+                  padding: "1rem",
+                  backgroundColor: "#fed7d7",
+                  color: "#c53030",
+                  borderRadius: "0.5rem",
+                }}
+              >
                 {error}
               </div>
             )}
 
             <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="admin-btn admin-btn-primary"
                 disabled={loading}
               >
@@ -278,7 +290,9 @@ export default function Settings() {
                 type="password"
                 className="admin-input"
                 value={passwordData.currentPassword}
-                onChange={(e) => handlePasswordChange("currentPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("currentPassword", e.target.value)
+                }
               />
             </div>
 
@@ -291,7 +305,9 @@ export default function Settings() {
                 type="password"
                 className="admin-input"
                 value={passwordData.newPassword}
-                onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("newPassword", e.target.value)
+                }
                 minLength={8}
               />
             </div>
@@ -305,24 +321,38 @@ export default function Settings() {
                 type="password"
                 className="admin-input"
                 value={passwordData.confirmPassword}
-                onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("confirmPassword", e.target.value)
+                }
                 minLength={8}
               />
             </div>
 
             {passwordError && (
-              <div style={{ color: "#e53e3e", fontSize: "0.875rem", marginBottom: "1rem" }}>
+              <div
+                style={{
+                  color: "#e53e3e",
+                  fontSize: "0.875rem",
+                  marginBottom: "1rem",
+                }}
+              >
                 {passwordError}
               </div>
             )}
 
             {passwordSuccess && (
-              <div style={{ color: "#38a169", fontSize: "0.875rem", marginBottom: "1rem" }}>
+              <div
+                style={{
+                  color: "#38a169",
+                  fontSize: "0.875rem",
+                  marginBottom: "1rem",
+                }}
+              >
                 ✓ Password changed successfully!
               </div>
             )}
 
-            <button 
+            <button
               type="submit"
               className="admin-btn admin-btn-secondary"
               disabled={loading}

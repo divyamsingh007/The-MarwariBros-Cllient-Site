@@ -27,7 +27,7 @@ export default function SecondSection() {
       description:
         "Handcrafted pieces that blend traditional artistry with contemporary design",
       backgroundImage: "/Dress-01.jpg",
-      category: "accessories",
+      category: "jewelry",
     },
     {
       title: "Juttis & Footwear",
@@ -45,33 +45,39 @@ export default function SecondSection() {
 
   const fetchCategoryImages = async () => {
     try {
-      const response = await productService.getAll({ 
+      const response = await productService.getAll({
         isPublished: true,
-        status: 'active'
+        status: "active",
       });
       const products = response.data.data?.products || response.data.data || [];
-      
+
       // Update each category with a random product image from that category
-      setCategories(prevCategories => 
-        prevCategories.map(cat => {
+      setCategories((prevCategories) =>
+        prevCategories.map((cat) => {
           const categoryProducts = products.filter(
-            p => p.category === cat.category && p.images && p.images.length > 0
+            (p) =>
+              p.category === cat.category && p.images && p.images.length > 0
           );
-          
+
           if (categoryProducts.length > 0) {
-            const randomProduct = categoryProducts[Math.floor(Math.random() * categoryProducts.length)];
-            const primaryImage = randomProduct.images.find(img => img.isPrimary) || randomProduct.images[0];
+            const randomProduct =
+              categoryProducts[
+                Math.floor(Math.random() * categoryProducts.length)
+              ];
+            const primaryImage =
+              randomProduct.images.find((img) => img.isPrimary) ||
+              randomProduct.images[0];
             return {
               ...cat,
-              backgroundImage: primaryImage?.url || cat.backgroundImage
+              backgroundImage: primaryImage?.url || cat.backgroundImage,
             };
           }
-          
+
           return cat;
         })
       );
     } catch (err) {
-      console.error('Failed to fetch category images:', err);
+      console.error("Failed to fetch category images:", err);
     }
   };
 
@@ -80,7 +86,7 @@ export default function SecondSection() {
 
     setTimeout(() => {
       navigate(`/collections?category=${categoryName}`);
-    }, 800); 
+    }, 800);
   };
 
   return (

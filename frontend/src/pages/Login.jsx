@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { userService } from '../api/services';
-import './Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userService } from "../api/services";
+import "./Login.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -17,28 +17,28 @@ export default function Login() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError('');
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await userService.login(formData);
-      
+
       if (response.data.success) {
         // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.data.user));
-        localStorage.setItem('accessToken', response.data.data.accessToken);
-        
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+
         // Redirect to admin dashboard
-        navigate('/admin');
+        navigate("/admin");
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError(err.response?.data?.message || 'Invalid email or password');
+      console.error("Login error:", err);
+      setError(err.response?.data?.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -72,7 +72,7 @@ export default function Login() {
                 value={formData.email}
                 onChange={handleChange}
                 className="form-input"
-                placeholder="admin@marwaribros.com"
+                placeholder="admin@marwaribrothers.com"
                 required
                 autoComplete="email"
               />
@@ -95,30 +95,28 @@ export default function Login() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="login-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="login-btn" disabled={loading}>
               {loading ? (
                 <>
                   <span className="spinner"></span>
                   Signing in...
                 </>
               ) : (
-                'Sign In'
+                "Sign In"
               )}
             </button>
           </form>
 
           <div className="login-footer">
             <p>Don't have an account? Contact your administrator</p>
-            
+
             {/* Development credentials */}
             <div className="dev-credentials">
-              <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Test Credentials:</p>
-              <p style={{ fontSize: '0.75rem' }}>Email: admin@admin.com</p>
-              <p style={{ fontSize: '0.75rem' }}>Password: 12345678</p>
+              <p style={{ fontWeight: 600, marginBottom: "0.5rem" }}>
+                Test Credentials:
+              </p>
+              <p style={{ fontSize: "0.75rem" }}>Email: admin@admin.com</p>
+              <p style={{ fontSize: "0.75rem" }}>Password: 12345678</p>
             </div>
           </div>
         </div>
