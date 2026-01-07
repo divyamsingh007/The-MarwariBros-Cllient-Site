@@ -1,23 +1,25 @@
-import asyncHandler from '../utils/asyncHandler.js';
-import ApiError from '../utils/ApiError.js';
-import ApiResponse from '../utils/ApiResponse.js';
-import { Cart, Product } from '../models/index.js';
+import asyncHandler from "../utils/asyncHandler.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import { Cart, Product } from "../models/index.js";
 
 // @desc    Get user's cart
 // @route   GET /api/v1/cart/:userId
 // @access  Private
 export const getCart = asyncHandler(async (req, res) => {
-  let cart = await Cart.findOne({ user: req.params.userId })
-    .populate('items.product', 'name price images stock');
+  let cart = await Cart.findOne({ user: req.params.userId }).populate(
+    "items.product",
+    "name price images stock"
+  );
 
   if (!cart) {
     // Create new cart if doesn't exist
     cart = await Cart.create({ user: req.params.userId, items: [] });
   }
 
-  res.status(200).json(
-    new ApiResponse(200, { cart }, 'Cart retrieved successfully')
-  );
+  res
+    .status(200)
+    .json(new ApiResponse(200, { cart }, "Cart retrieved successfully"));
 });
 
 // @desc    Add item to cart
@@ -35,12 +37,14 @@ export const addToCart = asyncHandler(async (req, res) => {
   await cart.addItem(productId, quantity, { size, color, variant });
 
   // Populate cart items
-  cart = await Cart.findById(cart._id)
-    .populate('items.product', 'name price images stock');
-
-  res.status(200).json(
-    new ApiResponse(200, { cart }, 'Item added to cart successfully')
+  cart = await Cart.findById(cart._id).populate(
+    "items.product",
+    "name price images stock"
   );
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, { cart }, "Item added to cart successfully"));
 });
 
 // @desc    Update cart item quantity
@@ -52,18 +56,26 @@ export const updateCartItem = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.params.userId });
 
   if (!cart) {
-    throw new ApiError(404, 'Cart not found');
+    throw new ApiError(404, "Cart not found");
   }
 
   await cart.updateItemQuantity(req.params.itemId, quantity);
 
   // Populate cart items
-  const updatedCart = await Cart.findById(cart._id)
-    .populate('items.product', 'name price images stock');
-
-  res.status(200).json(
-    new ApiResponse(200, { cart: updatedCart }, 'Cart item updated successfully')
+  const updatedCart = await Cart.findById(cart._id).populate(
+    "items.product",
+    "name price images stock"
   );
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { cart: updatedCart },
+        "Cart item updated successfully"
+      )
+    );
 });
 
 // @desc    Remove item from cart
@@ -73,18 +85,26 @@ export const removeFromCart = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.params.userId });
 
   if (!cart) {
-    throw new ApiError(404, 'Cart not found');
+    throw new ApiError(404, "Cart ");
   }
 
   await cart.removeItem(req.params.itemId);
 
   // Populate cart items
-  const updatedCart = await Cart.findById(cart._id)
-    .populate('items.product', 'name price images stock');
-
-  res.status(200).json(
-    new ApiResponse(200, { cart: updatedCart }, 'Item removed from cart successfully')
+  const updatedCart = await Cart.findById(cart._id).populate(
+    "items.product",
+    "name price images stock"
   );
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { cart: updatedCart },
+        "Item removed from cart successfully"
+      )
+    );
 });
 
 // @desc    Clear cart
@@ -94,14 +114,14 @@ export const clearCart = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.params.userId });
 
   if (!cart) {
-    throw new ApiError(404, 'Cart not found');
+    throw new ApiError(404, "Cart not found");
   }
 
   await cart.clearCart();
 
-  res.status(200).json(
-    new ApiResponse(200, { cart }, 'Cart cleared successfully')
-  );
+  res
+    .status(200)
+    .json(new ApiResponse(200, { cart }, "Cart cleared successfully"));
 });
 
 // @desc    Apply coupon to cart
@@ -113,18 +133,22 @@ export const applyCoupon = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.params.userId });
 
   if (!cart) {
-    throw new ApiError(404, 'Cart not found');
+    throw new ApiError(404, "Cart not found");
   }
 
   await cart.applyCoupon(couponCode);
 
   // Populate cart items
-  const updatedCart = await Cart.findById(cart._id)
-    .populate('items.product', 'name price images stock');
-
-  res.status(200).json(
-    new ApiResponse(200, { cart: updatedCart }, 'Coupon applied successfully')
+  const updatedCart = await Cart.findById(cart._id).populate(
+    "items.product",
+    "name price images stock"
   );
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, { cart: updatedCart }, "Coupon applied successfully")
+    );
 });
 
 // @desc    Remove coupon from cart
@@ -134,16 +158,20 @@ export const removeCoupon = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.params.userId });
 
   if (!cart) {
-    throw new ApiError(404, 'Cart not found');
+    throw new ApiError(404, "Cart not found");
   }
 
   await cart.removeCoupon();
 
   // Populate cart items
-  const updatedCart = await Cart.findById(cart._id)
-    .populate('items.product', 'name price images stock');
-
-  res.status(200).json(
-    new ApiResponse(200, { cart: updatedCart }, 'Coupon removed successfully')
+  const updatedCart = await Cart.findById(cart._id).populate(
+    "items.product",
+    "name price images stock"
   );
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, { cart: updatedCart }, "Coupon removed successfully")
+    );
 });
