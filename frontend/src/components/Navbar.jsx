@@ -61,7 +61,7 @@ export default function Navbar() {
                   style={{ animationDelay: "0.5s" }}
                 >
                   <Link
-                    to={"/admin"}
+                    to={"/admin/men"}
                     className="hover:opacity-80 transition-opacity"
                   >
                     <h3 className="heading-quaternary !text-sm lg:!text-xl">
@@ -131,7 +131,7 @@ export default function Navbar() {
                 <h3 className="heading-quaternary !text-base">Collections</h3>
               </Link>
               <Link
-                to={"/admin"}
+                to={"/admin/men"}
                 className="block px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
