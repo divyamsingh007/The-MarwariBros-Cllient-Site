@@ -25,7 +25,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="h-screen bg-[#001238] text-[#f9f9f9] relative overflow-hidden">
+    <footer className="min-h-[60vh] lg:min-h-screen bg-[#001238] text-[#f9f9f9] relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-32 h-32 border border-[#c5a46d] rotate-45"></div>
         <div className="absolute top-40 right-20 w-24 h-24 border border-[#c5a46d] rotate-12"></div>
@@ -34,7 +34,7 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 h-full flex flex-col">
-        <div className="flex-1 container mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl">
+        <div className="flex-1 container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl">
           <div
             className="space-y-8"
             data-aos="fade-right"
@@ -42,15 +42,15 @@ export default function Footer() {
           >
             <div className="space-y-6">
               <h1 className="heading-primary !text-[#f9f9f9] !text-4xl lg:!text-5xl">
-                The MarwariBrothers
+                TheMarwariBrothers
               </h1>
               <div className="heading-tertiary !text-[#c5a46d] !text-xl">
                 Crafting Legacy, One Thread at a Time
               </div>
               <p className="paragraph !text-[#f9f9f9] !text-lg max-w-lg leading-relaxed">
                 Experience the finest in traditional Marwari craftsmanship. From
-                bespoke garments to exquisite jewelry, we bring heritage to life
-                with modern elegance.
+                bespoke garments to exquisite jewellery, we bring heritage to
+                life with modern elegance.
               </p>
             </div>
 
@@ -89,7 +89,7 @@ export default function Footer() {
                       to="/collections?category=jewelry"
                       className="text-[#f9f9f9] hover:text-[#c5a46d] transition-colors duration-300"
                     >
-                      Jewelry
+                      Jewellery
                     </Link>
                   </li>
                 </ul>
@@ -147,18 +147,40 @@ export default function Footer() {
               <div className="space-y-2">
                 <p className="flex items-center gap-3">
                   <span className="text-[#c5a46d]">📍</span>
-                  <span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=P%20no.%2072%2C%20near%20DPS%20Pal%2C%20Jinishver%20Nagar%2C%20Dhinana%20ki%20Dhani%2C%20Jodhpur%2C%20342001"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#c5a46d] transition-colors duration-300"
+                  >
                     P no. 72, near DPS Pal, Jinishver Nagar, Dhinana ki Dhani,
                     Jodhpur, 342001
-                  </span>
+                  </a>
                 </p>
                 <p className="flex items-center gap-3">
                   <span className="text-[#c5a46d]">📞</span>
-                  <span>+91 6376504188 / 8769096165</span>
+                  <a
+                    href="tel:+916376504188"
+                    className="hover:text-[#c5a46d] transition-colors duration-300"
+                  >
+                    +91 6376504188
+                  </a>
+                  <span className="text-[#f9f9f9]/60"> / </span>
+                  <a
+                    href="tel:+918769096165"
+                    className="hover:text-[#c5a46d] transition-colors duration-300"
+                  >
+                    8769096165
+                  </a>
                 </p>
                 <p className="flex items-center gap-3">
                   <span className="text-[#c5a46d]">✉️</span>
-                  <span>contact@themarwaribrothers.com</span>
+                  <a
+                    href="mailto:contact@themarwaribrothers.com"
+                    className="hover:text-[#c5a46d] transition-colors duration-300"
+                  >
+                    contact@themarwaribrothers.com
+                  </a>
                 </p>
               </div>
             </div>

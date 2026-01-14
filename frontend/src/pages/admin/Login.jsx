@@ -118,7 +118,7 @@ export default function Login() {
           <div className="admin-login-brand-content">
             <div className="admin-login-logo">
               <div className="admin-login-logo-accent"></div>
-              <h1 className="admin-login-brand-title">The MarwariBrothers</h1>
+              <h1 className="admin-login-brand-title">TheMarwariBrothers</h1>
             </div>
 
             <div className="admin-login-brand-text">

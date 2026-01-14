@@ -35,7 +35,7 @@ export default function HeroSection() {
               <div className="lg:col-span-7 xl:col-span-8 order-1 lg:order-2 text-center lg:text-left space-y-6 sm:space-y-8 lg:space-y-10">
                 <div className="space-y-4 lg:space-y-6">
                   <h1 className="heading-primary !text-[#F9F9F9] !text-4xl sm:!text-5xl md:!text-6xl lg:!text-7xl xl:!text-8xl !leading-tight hero-title-animate">
-                    The MarwariBrothers
+                    TheMarwariBrothers
                   </h1>
 
                   <h2 className="heading-tertiary !text-lg sm:!text-xl md:!text-2xl lg:!text-3xl xl:!text-4xl !leading-relaxed hero-subtitle-animate">

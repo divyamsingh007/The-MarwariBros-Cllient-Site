@@ -68,7 +68,7 @@ export default function Collections() {
     { id: "all", name: "All Collections" },
     { id: "men", name: "Men's Wear" },
     { id: "women", name: "Women's Wear" },
-    { id: "jewelry", name: "Jewelry" },
+    { id: "jewelry", name: "Jewellery" },
     { id: "footwear", name: "Juttis" },
   ];
 
@@ -184,7 +184,7 @@ export default function Collections() {
       image:
         "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=800&fit=crop",
       description:
-        "Authentic kundan jewelry with traditional craftsmanship and precious stones.",
+        "Authentic kundan jewellery with traditional craftsmanship and precious stones.",
       features: [
         "Kundan Work",
         "Precious Stones",
@@ -195,13 +195,13 @@ export default function Collections() {
     {
       id: 8,
       category: "jewelry",
-      name: "Modern Temple Jewelry",
+      name: "Modern Temple Jewellery",
       subtitle: "Divine Beauty",
       price: "₹35,000 - ₹85,000",
       image:
         "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=600&h=800&fit=crop",
       description:
-        "Contemporary temple jewelry with traditional motifs and modern appeal.",
+        "Contemporary temple jewellery with traditional motifs and modern appeal.",
       features: [
         "Temple Design",
         "Antique Finish",

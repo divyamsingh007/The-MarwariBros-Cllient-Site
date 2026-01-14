@@ -16,7 +16,7 @@ export default function About() {
       name: "Priya Marwari",
       role: "Design Director",
       experience: "20+ Years",
-      specialty: "Women's Ethnic Wear & Jewelry Design",
+      specialty: "Women's Ethnic Wear & Jewellery Design",
       image:
         "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
     },
@@ -114,13 +114,15 @@ export default function About() {
                   shaped elegance for royal families and whose legacies are
                   woven into the very fabric of Jodhpur’s history. These are not
                   anonymous tailors; they are masters like{" "}
-                  <em>[Name, National Award Winner for Jewellery]</em> and
-                  <em>[Name, family embroiderer to the Jodhpur royalty]</em>,
+                  <em>National Award Winner for Jewellery</em> and
+                  <em> family embroiderer to the Jodhpur royalty</em>,
                   whom we have partnered with to bring their genius to your
                   story.
                 </p>
 
-                <h3 className="paragraph !text-lg !font-bold">The TMB Promise: Seamless, End-to-End Excellence</h3>
+                <h3 className="paragraph !text-lg !font-bold">
+                  The TMB Promise: Seamless, End-to-End Excellence
+                </h3>
 
                 <p className="paragraph !text-lg">
                   We solve the fundamental inconvenience faced by the
@@ -140,7 +142,9 @@ export default function About() {
                   of craftsmanship.
                 </p>
 
-                <h3 className="paragraph !text-lg !font-bold">The ‘Amul of Tailoring’: A Standard of Trust</h3>
+                <h3 className="paragraph !text-lg !font-bold">
+                  The ‘Amul of Tailoring’: A Standard of Trust
+                </h3>
 
                 <p className="paragraph !text-lg">
                   In a world of mass-produced luxury, we are building what
@@ -152,7 +156,9 @@ export default function About() {
                   of stitches that hold a legacy.
                 </p>
 
-                <h3 className="paragraph !text-lg !font-bold">Your Wedding, Our Heritage</h3>
+                <h3 className="paragraph !text-lg !font-bold">
+                  Your Wedding, Our Heritage
+                </h3>
 
                 <p className="paragraph !text-lg">
                   We invite you to not just wear an outfit, but to inherit a
@@ -252,102 +258,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Our journey section */}
-      {/* <section className="py-20 lg:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="heading-primary mb-4">Our Journey</h2>
-            <h3 className="heading-tertiary mb-8">
-              Milestones That Defined Us
-            </h3>
-          </div>
-
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-[#c5a46d] h-full hidden lg:block"></div>
-
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  }`}
-                >
-                  <div
-                    className={`w-full lg:w-5/12 ${
-                      index % 2 === 0
-                        ? "lg:text-right lg:pr-8"
-                        : "lg:text-left lg:pl-8"
-                    }`}
-                  >
-                    <div className="bg-white rounded-xl p-6 shadow-xl border-l-4 border-[#c5a46d]">
-                      <div className="heading-secondary !text-[#c5a46d] !text-3xl mb-2">
-                        {milestone.year}
-                      </div>
-                      <h4 className="heading-quaternary !text-xl !text-[#001238] mb-2">
-                        {milestone.event}
-                      </h4>
-                      <p className="paragraph !text-base">
-                        {milestone.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="hidden lg:flex w-2/12 justify-center">
-                    <div className="w-4 h-4 bg-[#c5a46d] rounded-full border-4 border-[#f9f9f9] shadow-lg"></div>
-                  </div>
-
-                  <div className="w-full lg:w-5/12"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      <section className="py-20 bg-[#f9f9f9]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="heading-primary mb-4">Meet Our Masters</h2>
-            <h3 className="heading-tertiary mb-8">
-              The Artisans Behind the Magic
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="group">
-                <div className="bg-white rounded-2xl overflow-hidden shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#001238]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="p-6">
-                    <h4 className="heading-secondary !text-xl !text-[#001238] mb-2">
-                      {member.name}
-                    </h4>
-                    <p className="heading-tertiary !text-base !text-[#c5a46d] mb-2">
-                      {member.role}
-                    </p>
-                    <p className="paragraph-small !text-[#333] mb-2">
-                      {member.experience} Experience
-                    </p>
-                    <p className="paragraph-small !text-[#666]">
-                      Specialty: {member.specialty}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-[#001238]">
+      <section className="py-20 bg-[#F9F9F9]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="heading-primary !text-[#f9f9f9] mb-6">
             Ready to Begin Your Journey?
@@ -355,7 +266,7 @@ export default function About() {
           <h3 className="heading-tertiary !text-[#c5a46d] mb-8">
             Let's Create Something Beautiful Together
           </h3>
-          <p className="paragraph !text-[#f9f9f9] !text-lg max-w-2xl mx-auto mb-10">
+          <p className="paragraph !text-[#000000] !text-lg max-w-2xl mx-auto mb-10">
             Whether it's a wedding ensemble, a festive outfit, or a custom piece
             that tells your story, we're here to bring your vision to life with
             our time-honored craftsmanship.
