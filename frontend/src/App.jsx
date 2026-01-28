@@ -5,6 +5,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+import ScheduleConsultation from "./pages/ScheduleConsultation";
 import Collections from "./pages/Collections";
 import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/schedule" element={<ScheduleConsultation />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />

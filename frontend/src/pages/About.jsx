@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -59,6 +60,8 @@ export default function About() {
     },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#f9f9f9] page-fade-in">
       <Navbar></Navbar>
@@ -113,11 +116,8 @@ export default function About() {
                   multi-generational master karigars—artisans whose hands have
                   shaped elegance for royal families and whose legacies are
                   woven into the very fabric of Jodhpur’s history. These are not
-                  anonymous tailors; they are masters like{" "}
-                  <em>National Award Winner for Jewellery</em> and
-                  <em> family embroiderer to the Jodhpur royalty</em>,
-                  whom we have partnered with to bring their genius to your
-                  story.
+                  just anonymous tailors; we have partnered with them to bring
+                  their genius to your story.
                 </p>
 
                 <h3 className="paragraph !text-lg !font-bold">
@@ -272,7 +272,10 @@ export default function About() {
             our time-honored craftsmanship.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl">
+            <button
+              onClick={() => navigate("/schedule")}
+              className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl"
+            >
               Schedule Consultation
             </button>
             {/* <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
