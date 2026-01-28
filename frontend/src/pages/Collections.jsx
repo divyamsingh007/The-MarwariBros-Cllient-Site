@@ -8,7 +8,7 @@ export default function Collections() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(
-    searchParams.get("category") || "all"
+    searchParams.get("category") || "all",
   );
   const [selectedItem, setSelectedItem] = useState(null);
   const [products, setProducts] = useState([]);
@@ -492,7 +492,10 @@ export default function Collections() {
             personal style preferences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl">
+            <button
+              onClick={() => navigate("/scheduleconsultation")}
+              className="bg-[#c5a46d] text-[#001238] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#d4b578] transform hover:scale-105 transition-all duration-300 shadow-xl"
+            >
               Request Custom Design
             </button>
             {/* <button className="border-2 border-[#c5a46d] text-[#c5a46d] py-4 px-8 rounded-full font-bold text-lg hover:bg-[#c5a46d] hover:text-[#001238] transition-all duration-300">
