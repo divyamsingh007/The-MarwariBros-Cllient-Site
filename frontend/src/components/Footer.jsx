@@ -1,5 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import emailjs from "@emailjs/browser";
+
+// EmailJS Configuration - Replace these with your actual EmailJS credentials
+// 1. Go to https://www.emailjs.com/ and create a free account
+// 2. Add an email service (Gmail, Outlook, etc.)
+// 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{phone}}, {{message}}
+// 4. Replace the values below with your Service ID, Template ID, and Public Key
+const EMAILJS_SERVICE_ID = "service_lpnsr9s";
+const EMAILJS_TEMPLATE_ID = "template_adedjqa";
+const EMAILJS_PUBLIC_KEY = "166XiT9IgMZxq5YNt";
 
 export default function Footer() {
   const [formData, setFormData] = useState({
@@ -8,6 +19,7 @@ export default function Footer() {
     phone: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,11 +29,37 @@ export default function Footer() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setIsSubmitting(true);
+
+    const { name, email, phone, message } = formData;
+
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      phone: phone || "Not provided",
+      message: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}`,
+      to_email: "legendprice007@gmail.com",
+    };
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY,
+      );
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error(
+        "Failed to send message. Please try again or contact us directly.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -262,22 +300,25 @@ export default function Footer() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="group relative inline-flex items-center gap-3 text-[#c5a46d] font-medium tracking-wide hover:text-[#f9f9f9] transition-colors duration-300"
+                    disabled={isSubmitting}
+                    className="group relative inline-flex items-center gap-3 text-[#c5a46d] font-medium tracking-wide hover:text-[#f9f9f9] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span>Send Message</span>
-                    <svg
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
+                    <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                    {!isSubmitting && (
+                      <svg
+                        className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    )}
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-[#c5a46d] group-hover:w-full transition-all duration-500"></span>
                   </button>
                 </div>
@@ -319,38 +360,6 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-[#c5a46d]/20 py-6">
-          <div
-            className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center max-w-7xl"
-            data-aos="fade-up"
-            data-aos-duration="600"
-          >
-            <div className="text-[#f9f9f9]/70 text-sm mb-4 md:mb-0">
-              © 2025 The Marwari Brothers. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <Link
-                to="#"
-                className="text-[#f9f9f9]/70 hover:text-[#c5a46d] transition-colors duration-300"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                to="#"
-                className="text-[#f9f9f9]/70 hover:text-[#c5a46d] transition-colors duration-300"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                to="#"
-                className="text-[#f9f9f9]/70 hover:text-[#c5a46d] transition-colors duration-300"
-              >
-                Shipping Info
-              </Link>
             </div>
           </div>
         </div>

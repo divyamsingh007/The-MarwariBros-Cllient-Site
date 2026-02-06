@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import toast from "react-hot-toast";
+import emailjs from "@emailjs/browser";
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_lpnsr9s";
+const EMAILJS_TEMPLATE_ID = "template_adedjqa";
+const EMAILJS_PUBLIC_KEY = "166XiT9IgMZxq5YNt";
 
 export default function ScheduleConsultation() {
   const navigate = useNavigate();
@@ -78,28 +85,90 @@ export default function ScheduleConsultation() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const {
+      fullName,
+      email,
+      phone,
+      eventType,
+      eventDate,
+      preferredDate,
+      preferredTime,
+      services,
+      budget,
+      message,
+    } = formData;
 
-    console.log("Consultation Request:", formData);
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
+    // Get service labels from IDs
+    const selectedServices =
+      services
+        .map((id) => serviceOptions.find((s) => s.id === id)?.label)
+        .filter(Boolean)
+        .join(", ") || "None selected";
 
-    // Reset form after success
-    setTimeout(() => {
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        eventType: "",
-        eventDate: "",
-        preferredDate: "",
-        preferredTime: "",
-        services: [],
-        budget: "",
-        message: "",
-      });
-    }, 500);
+    const templateParams = {
+      from_name: fullName,
+      from_email: email,
+      phone: phone || "Not provided",
+      message: `CONSULTATION REQUEST
+========================
+
+Personal Details:
+- Name: ${fullName}
+- Email: ${email}
+- Phone: ${phone || "Not provided"}
+
+Event Details:
+- Event Type: ${eventType || "Not specified"}
+- Event Date: ${eventDate || "Not specified"}
+
+Consultation Preferences:
+- Preferred Date: ${preferredDate || "Not specified"}
+- Preferred Time: ${preferredTime || "Not specified"}
+
+Services Interested In:
+${selectedServices}
+
+Budget Range: ${budget || "Not specified"}
+
+Additional Message:
+${message || "No additional message"}
+
+========================
+Sent from TheMarwariBrothers Website - Consultation Form`,
+      to_email: "legendprice007@gmail.com",
+    };
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY,
+      );
+      toast.success("Consultation request sent successfully!");
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          eventType: "",
+          eventDate: "",
+          preferredDate: "",
+          preferredTime: "",
+          services: [],
+          budget: "",
+          message: "",
+        });
+      }, 500);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error(
+        "Failed to send request. Please try again or contact us directly.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitSuccess) {
@@ -616,7 +685,6 @@ export default function ScheduleConsultation() {
                   contact@themarwaribrothers.com
                 </p>
               </div>
-              
             </div>
           </div>
         </div>

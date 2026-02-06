@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import "./App.css";
 
@@ -21,11 +22,15 @@ import AdminLogin from "./pages/admin/Login";
 function App() {
   return (
     <>
+      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <ScrollToTop></ScrollToTop>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/scheduleconsultation" element={<ScheduleConsultation />} />
+        <Route
+          path="/scheduleconsultation"
+          element={<ScheduleConsultation />}
+        />
         <Route path="/collections" element={<Collections />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
